@@ -34,7 +34,7 @@ template.innerHTML = `
   </section>
 `;
 
-class HeroSlider extends HTMLElement {
+class SiteSlider extends HTMLElement {
   connectedCallback() {
     if (this._rendered) return;
     this._rendered = true;
@@ -170,6 +170,6 @@ class HeroSlider extends HTMLElement {
   }
 }
 
-if (!customElements.get("hero-slider")) {
-  customElements.define("hero-slider", HeroSlider);
+if (!customElements.get("site-slider")) {
+  customElements.define("site-slider", SiteSlider);
 }

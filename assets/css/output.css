@@ -664,6 +664,9 @@
   .table {
     display: table;
   }
+  .h-0 {
+    height: calc(var(--spacing) * 0);
+  }
   .h-2 {
     height: calc(var(--spacing) * 2);
   }
@@ -696,6 +699,15 @@
   }
   .h-44 {
     height: calc(var(--spacing) * 44);
+  }
+  .h-50 {
+    height: calc(var(--spacing) * 50);
+  }
+  .h-90 {
+    height: calc(var(--spacing) * 90);
+  }
+  .h-100 {
+    height: calc(var(--spacing) * 100);
   }
   .h-\[520px\] {
     height: 520px;
@@ -897,6 +909,9 @@
   .border-primary-200 {
     border-color: var(--color-primary-200);
   }
+  .border-primary-300 {
+    border-color: var(--color-primary-300);
+  }
   .border-slate-200 {
     border-color: var(--color-slate-200);
   }
@@ -942,6 +957,15 @@
   .bg-primary-100 {
     background-color: var(--color-primary-100);
   }
+  .bg-primary-200 {
+    background-color: var(--color-primary-200);
+  }
+  .bg-primary-200\/50 {
+    background-color: var(--color-primary-200);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-primary-200) 50%, transparent);
+    }
+  }
   .bg-primary-300 {
     background-color: var(--color-primary-300);
   }
@@ -981,6 +1005,15 @@
   }
   .bg-\[url\(\'\.\.\/images\/home\/9\.jpg\'\)\] {
     background-image: url('../images/home/9.jpg');
+  }
+  .bg-\[url\(\'\.\.\/images\/home\/pattern\.jpg\'\)\] {
+    background-image: url('../images/home/pattern.jpg');
+  }
+  .bg-\[url\(\'\.\.\/images\/home\/pattern\.pg\'\)\] {
+    background-image: url('../images/home/pattern.pg');
+  }
+  .bg-\[url\(\'\.\.\/images\/home\/pattern\.png\'\)\] {
+    background-image: url('../images/home/pattern.png');
   }
   .via-primary-600 {
     --tw-gradient-via: var(--color-primary-600);
@@ -1327,10 +1360,24 @@
       }
     }
   }
+  .hover\:bg-primary-50 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-primary-50);
+      }
+    }
+  }
   .hover\:bg-primary-100 {
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-primary-100);
+      }
+    }
+  }
+  .hover\:bg-primary-300 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-primary-300);
       }
     }
   }
