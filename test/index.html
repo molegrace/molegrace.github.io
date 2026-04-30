@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>GSAP Slice Transition</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+    background: #0f172a;
+  }
+
+  .slider {
+    width: 420px;
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.4);
+    perspective: 900px;
+    transform-style: preserve-3d;
+  }
+
+  .layer {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 6), 1fr);
+    grid-template-rows: repeat(var(--rows, 1), 1fr);
+    gap: 0;
+  }
+
+  .piece {
+    background-size: 420px 280px;
+    background-repeat: no-repeat;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+    position: relative;
+    transform: translateZ(0);
+  }
+
+  /* Hide hairline seams between slices (subpixel/texture filtering). */
+  .piece::before {
+    content: "";
+    position: absolute;
+    inset: -0.6px;
+    background: inherit;
+    background-repeat: inherit;
+    background-size: inherit;
+    background-position: inherit;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="slider" id="slider"></div>
+
+<script>
+const images = [
+  "../assets/images/blog/3.jpg",
+  "../assets/images/blog/4.jpg",
+  "../assets/images/blog/5.jpg"
+];
+
+// Vertical column slices (full-height strips)
+const rows = 1;
+const cols = 12;
+
+const slider = document.getElementById("slider");
+
+let current = 0;
+let isAnimating = false;
+let currentLayer = createLayer(images[current]);
+
+slider.appendChild(currentLayer);
+
+function createLayer(img) {
+  const layer = document.createElement("div");
+  layer.className = "layer";
+  layer.style.setProperty("--cols", String(cols));
+  layer.style.setProperty("--rows", String(rows));
+
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      const piece = document.createElement("div");
+      piece.className = "piece";
+
+      piece.style.backgroundImage = `url(${img})`;
+      piece.style.backgroundPosition =
+        `${-x * (420 / cols)}px ${-y * (280 / rows)}px`;
+
+      layer.appendChild(piece);
+    }
+  }
+
+  return layer;
+}
+
+function nextSlide() {
+  if (isAnimating) return;
+  isAnimating = true;
+
+  const nextIndex = (current + 1) % images.length;
+  const nextLayer = createLayer(images[nextIndex]);
+
+  slider.appendChild(nextLayer);
+
+  const currentPieces = Array.from(currentLayer.children);
+  const nextPieces = Array.from(nextLayer.children);
+
+  // Put incoming on top during transition.
+  nextLayer.style.zIndex = "2";
+  currentLayer.style.zIndex = "1";
+
+  // Vertical column slices animation (left -> right).
+  const inX = 120;
+  const outX = 140;
+  const stagger = { each: 0.045, from: "start" };
+
+  gsap.set(nextPieces, {
+    opacity: 0,
+    z: -220,
+    scale: 0.92,
+    rotationX: 0,
+    rotationY: (i) => (i % 2 ? -70 : 70),
+    x: (i) => {
+      const col = i % cols;
+      const dir = col % 2 === 0 ? -1 : 1;
+      return dir * inX;
+    },
+    y: 0,
+    rotationZ: 0
+  });
+
+  const tl = gsap.timeline({
+    onComplete: () => {
+      slider.removeChild(currentLayer);
+      currentLayer = nextLayer;
+      current = nextIndex;
+      isAnimating = false;
+    }
+  });
+
+  tl.to(currentPieces, {
+    duration: 0.8,
+    opacity: 0,
+    x: (i) => {
+      const col = i % cols;
+      const dir = col % 2 === 0 ? -1 : 1;
+      return dir * outX;
+    },
+    y: 0,
+    rotationX: 0,
+    rotationY: (i) => (i % 2 ? 75 : -75),
+    rotationZ: 0,
+    z: -240,
+    scale: 0.82,
+    stagger,
+    ease: "power2.out"
+  });
+
+  tl.to(nextPieces, {
+    duration: 0.85,
+    opacity: 1,
+    scale: 1,
+    x: 0,
+    y: 0,
+    z: 0,
+    rotationX: 0,
+    rotationY: 0,
+    rotationZ: 0,
+    stagger,
+    ease: "power3.out"
+  }, "-=0.55");
+}
+
+setInterval(nextSlide, 3000);
+</script>
+
+</body>
+</html>
