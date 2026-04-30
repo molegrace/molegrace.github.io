@@ -1,48 +1,7 @@
 const template = document.createElement("template");
 template.innerHTML = `
-  <section id="theme-main-banner" class="banner-one relative overflow-hidden">
-    <div class="relative h-[520px] sm:h-[620px]" data-slides>
-      <hero-slide
-        style="opacity: 1; pointer-events: auto; z-index: 1;"
-        data-slide
-        role="group"
-        aria-roledescription="slide"
-        aria-label="1 of 3"
-        title="LAND"
-        subtitle="REGISTRATION & DEVELOPMENT"
-        img="assets/images/home/slide-1.jpg"
-        href="/land/"
-        cta="Learn more"
-      ></hero-slide>
-
-      <hero-slide
-        style="opacity: 0; pointer-events: none; z-index: 0;"
-        data-slide
-        role="group"
-        aria-roledescription="slide"
-        aria-label="2 of 3"
-        aria-hidden="true"
-        title="UAV SERVICE"
-        subtitle="MAPPING & MONITORING"
-        img="assets/images/home/slide-5.jpg"
-        href="/aerial/"
-        cta="Learn more"
-      ></hero-slide>
-
-      <hero-slide
-        style="opacity: 0; pointer-events: none; z-index: 0;"
-        data-slide
-        role="group"
-        aria-roledescription="slide"
-        aria-label="3 of 3"
-        aria-hidden="true"
-        title="DATA"
-        subtitle="COLLECTION TO VISUALIZATION"
-        img="assets/images/home/slide-3.jpg"
-        href="/data/"
-        cta="Learn more"
-      ></hero-slide>
-    </div>
+  <section id="theme-main-banner" class="banner-one relative overflow-hidden bg-primary-300">
+    <div class="relative h-[520px] sm:h-[620px]" data-slides></div>
 
     <!-- Controls -->
     <div class="pointer-events-none absolute inset-x-0 bottom-6 z-10">
@@ -80,7 +39,12 @@ class HeroSlider extends HTMLElement {
     if (this._rendered) return;
     this._rendered = true;
 
+    const initialSlides = Array.from(this.children);
     this.appendChild(template.content.cloneNode(true));
+
+    const slidesRoot = this.querySelector("[data-slides]");
+    for (const slide of initialSlides) slidesRoot.appendChild(slide);
+
     this._onVisibilityChange = () => this.#handleVisibilityChange();
     this.#init();
   }
@@ -96,12 +60,22 @@ class HeroSlider extends HTMLElement {
 
   #init() {
     this._index = 0;
-    this._slides = Array.from(this.querySelectorAll("[data-slide]"));
+    this._slidesRoot = this.querySelector("[data-slides]");
+    this._slides = Array.from(this._slidesRoot?.children || []).filter(
+      (el) => el.matches && el.matches("hero-slide, [data-slide]")
+    );
     this._dotsRoot = this.querySelector("[data-dots]");
     this._prefersReducedMotion =
       typeof window !== "undefined" &&
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    for (const slide of this._slides) {
+      slide.setAttribute("data-slide", "");
+      if (!slide.hasAttribute("role")) slide.setAttribute("role", "group");
+      slide.setAttribute("aria-roledescription", "slide");
+    }
+    this.#syncAriaLabels();
 
     this.#renderDots();
     this.#show(0, { animate: true });
@@ -176,6 +150,13 @@ class HeroSlider extends HTMLElement {
     }
 
     if (animate && !this._prefersReducedMotion) this.#restartAnimations(this._slides[nextIndex]);
+  }
+
+  #syncAriaLabels() {
+    const total = this._slides.length;
+    this._slides.forEach((slide, i) => {
+      slide.setAttribute("aria-label", `${i + 1} of ${total}`);
+    });
   }
 
   #restartAnimations(slide) {
