@@ -1,19 +1,26 @@
 const template = document.createElement("template");
 template.innerHTML = `
-  <section id="theme-main-banner" class="relative overflow-hidden">
+  <section id="theme-main-banner" class="banner-one relative overflow-hidden">
     <div class="relative h-[520px] sm:h-[620px]" data-slides>
       <div
-        class="absolute inset-0 opacity-100 transition-opacity duration-700 ease-in-out"
+        class="absolute inset-0 transition-opacity duration-700 ease-in-out"
+        style="opacity: 1; pointer-events: auto; z-index: 1;"
         data-slide
-        data-src="/assets/images/home/slide-1.jpg"
+        data-src="assets/images/home/slide-1.jpg"
         role="group"
         aria-roledescription="slide"
         aria-label="1 of 3"
       >
+        <img
+          src="assets/images/home/slide-1.jpg"
+          alt=""
+          class="absolute inset-0 h-full w-full object-cover"
+          loading="eager"
+          decoding="async"
+        />
         <div class="absolute inset-0 bg-primary-950/60"></div>
-        <div class="absolute inset-0 bg-cover bg-center" data-bg></div>
-        <div class="absolute inset-0">
-          <div class="mx-auto flex h-full max-w-7xl items-center px-4">
+        <div class="camera_caption absolute inset-0">
+          <div class="container mx-auto flex h-full max-w-7xl items-center px-4">
             <div class="max-w-2xl">
               <h1
                 class="text-4xl font-extrabold tracking-tight text-main-0 sm:text-6xl"
@@ -42,18 +49,25 @@ template.innerHTML = `
       </div>
 
       <div
-        class="absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out pointer-events-none"
+        class="absolute inset-0 transition-opacity duration-700 ease-in-out"
+        style="opacity: 0; pointer-events: none; z-index: 0;"
         data-slide
-        data-src="/assets/images/home/slide-5.jpg"
+        data-src="assets/images/home/slide-5.jpg"
         role="group"
         aria-roledescription="slide"
         aria-label="2 of 3"
         aria-hidden="true"
       >
+        <img
+          src="assets/images/home/slide-5.jpg"
+          alt=""
+          class="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
         <div class="absolute inset-0 bg-primary-950/60"></div>
-        <div class="absolute inset-0 bg-cover bg-center" data-bg></div>
-        <div class="absolute inset-0">
-          <div class="mx-auto flex h-full max-w-7xl items-center px-4">
+        <div class="camera_caption absolute inset-0">
+          <div class="container mx-auto flex h-full max-w-7xl items-center px-4">
             <div class="max-w-2xl">
               <h1
                 class="text-4xl font-extrabold tracking-tight text-main-0 sm:text-6xl"
@@ -82,18 +96,25 @@ template.innerHTML = `
       </div>
 
       <div
-        class="absolute inset-0 opacity-0 transition-opacity duration-700 ease-in-out pointer-events-none"
+        class="absolute inset-0 transition-opacity duration-700 ease-in-out"
+        style="opacity: 0; pointer-events: none; z-index: 0;"
         data-slide
-        data-src="/assets/images/home/slide-3.jpg"
+        data-src="assets/images/home/slide-3.jpg"
         role="group"
         aria-roledescription="slide"
         aria-label="3 of 3"
         aria-hidden="true"
       >
+        <img
+          src="assets/images/home/slide-3.jpg"
+          alt=""
+          class="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+        />
         <div class="absolute inset-0 bg-primary-950/60"></div>
-        <div class="absolute inset-0 bg-cover bg-center" data-bg></div>
-        <div class="absolute inset-0">
-          <div class="mx-auto flex h-full max-w-7xl items-center px-4">
+        <div class="camera_caption absolute inset-0">
+          <div class="container mx-auto flex h-full max-w-7xl items-center px-4">
             <div class="max-w-2xl">
               <h1
                 class="text-4xl font-extrabold tracking-tight text-main-0 sm:text-6xl"
@@ -159,12 +180,17 @@ class HeroSlider extends HTMLElement {
     this._rendered = true;
 
     this.appendChild(template.content.cloneNode(true));
+    this._onVisibilityChange = () => this.#handleVisibilityChange();
     this.#init();
   }
 
   disconnectedCallback() {
     if (this._timer) window.clearInterval(this._timer);
     this._timer = null;
+    if (this._onVisibilityChange) {
+      document.removeEventListener("visibilitychange", this._onVisibilityChange);
+      this._onVisibilityChange = null;
+    }
   }
 
   #init() {
@@ -175,12 +201,6 @@ class HeroSlider extends HTMLElement {
       typeof window !== "undefined" &&
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    for (const slide of this._slides) {
-      const src = slide.getAttribute("data-src");
-      const bg = slide.querySelector("[data-bg]");
-      if (src && bg) bg.style.backgroundImage = `url('${src}')`;
-    }
 
     this.#renderDots();
     this.#show(0, { animate: true });
@@ -199,7 +219,20 @@ class HeroSlider extends HTMLElement {
       this.addEventListener("mouseleave", () => {
         if (!this._timer) this._timer = window.setInterval(() => this.#step(1), 7000);
       });
+
+      document.addEventListener("visibilitychange", this._onVisibilityChange);
     }
+  }
+
+  #handleVisibilityChange() {
+    if (this._prefersReducedMotion) return;
+    if (document.visibilityState === "hidden") {
+      if (this._timer) window.clearInterval(this._timer);
+      this._timer = null;
+      return;
+    }
+
+    if (!this._timer) this._timer = window.setInterval(() => this.#step(1), 7000);
   }
 
   #renderDots() {
@@ -227,9 +260,9 @@ class HeroSlider extends HTMLElement {
 
     this._slides.forEach((slide, i) => {
       const isActive = i === nextIndex;
-      slide.classList.toggle("opacity-100", isActive);
-      slide.classList.toggle("opacity-0", !isActive);
-      slide.classList.toggle("pointer-events-none", !isActive);
+      slide.style.opacity = isActive ? "1" : "0";
+      slide.style.pointerEvents = isActive ? "auto" : "none";
+      slide.style.zIndex = isActive ? "1" : "0";
       slide.toggleAttribute("aria-hidden", !isActive);
     });
 
@@ -258,4 +291,3 @@ class HeroSlider extends HTMLElement {
 if (!customElements.get("hero-slider")) {
   customElements.define("hero-slider", HeroSlider);
 }
-

@@ -56,35 +56,7 @@
 
     <main>
       <!-- Hero -->
-      <section class="relative overflow-hidden">
-        <div class="absolute inset-0 bg-primary-950/60"></div>
-        <img src="/assets/images/home/slide-1.jpg" alt="" class="h-[520px] w-full object-cover sm:h-[620px]" loading="eager" />
-        <div class="absolute inset-0">
-          <div class="mx-auto flex h-full max-w-7xl items-center px-4">
-            <div class="max-w-2xl">
-              <p class="text-sm font-semibold tracking-widest text-main-0/80">DATA • LAND • UAV</p>
-              <h1 class="mt-4 text-4xl font-extrabold tracking-tight text-main-0 sm:text-6xl">
-                LAND REGISTRATION &amp; DEVELOPMENT
-              </h1>
-              <p class="mt-5 text-base leading-relaxed text-main-0/85 sm:text-lg">
-                Surveying, data processing, visualization, and decision-ready insights—built for speed and accuracy.
-              </p>
-              <div class="mt-8 flex flex-wrap gap-3">
-                <a
-                  href="/land/"
-                  class="inline-flex items-center justify-center rounded-lg bg-main-0 px-5 py-3 text-sm font-semibold text-primary-900 shadow-sm transition hover:bg-primary-100 focus:outline-none focus:ring-2 focus:ring-main-0/40"
-                  >Learn more</a
-                >
-                <a
-                  href="/contact/"
-                  class="inline-flex items-center justify-center rounded-lg border border-main-0/30 bg-main-0/0 px-5 py-3 text-sm font-semibold text-main-0 shadow-sm transition hover:bg-main-0/10 focus:outline-none focus:ring-2 focus:ring-main-0/40"
-                  >Get a quote</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <hero-slider></hero-slider>
 
       <!-- Callout -->
       <section class="border-b border-primary-200 bg-primary-50">
@@ -421,7 +393,8 @@
 
     <site-footer></site-footer>
 
-    <script type="module" src="/src/layout/topnav.js"></script>
-    <script type="module" src="/src/layout/footer.js"></script>
+    <script type="module" src="./src/ui/hero-slider.js"></script>
+    <script type="module" src="./src/layout/topnav.js"></script>
+    <script type="module" src="./src/layout/footer.js"></script>
   </body>
 </html>
