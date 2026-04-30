@@ -1,45 +1,134 @@
-const template = document.createElement("template");
-template.innerHTML = `
-  <section id="theme-main-banner" class="banner-one relative overflow-hidden bg-primary-300">
-    <div class="relative h-[520px] sm:h-[620px]" data-slides></div>
+const buildTemplate = ({ mode, variant, showArrows, showDots }) => {
+  const isOverlay = mode !== "stack";
+  const isHero = variant === "hero";
+  const isTestimonial = variant === "testimonial";
 
-    <!-- Controls -->
-    <div class="pointer-events-none absolute inset-x-0 bottom-6 z-10">
-      <div class="mx-auto flex max-w-7xl items-center justify-between px-4">
-        <button
-          type="button"
-          data-prev
-          class="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-main-0/30 bg-main-0/10 text-main-0 backdrop-blur transition hover:bg-main-0/20 focus:outline-none focus:ring-2 focus:ring-main-0/40"
-          aria-label="Previous slide"
-        >
-          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 18l-6-6 6-6" />
-          </svg>
-        </button>
+  const prevNextBase =
+    "inline-flex h-11 w-11 items-center justify-center rounded-full border backdrop-blur transition focus:outline-none focus:ring-2";
+  const prevNextOverlay =
+    "border-main-0/30 bg-main-0/10 text-main-0 hover:bg-main-0/20 focus:ring-main-0/40";
+  const prevNextStack =
+    "border-primary-200 bg-main-0/80 text-main-900 hover:bg-main-0 focus:ring-primary-300";
 
-        <div class="pointer-events-auto flex items-center gap-2" aria-label="Slide navigation" data-dots></div>
+  const slidesClass = ["relative", "overflow-hidden"];
+  if (isHero && isOverlay) slidesClass.push("h-[520px]", "sm:h-[620px]");
+  if (isTestimonial && !isOverlay) slidesClass.push("mx-auto", "max-w-3xl");
 
-        <button
-          type="button"
-          data-next
-          class="pointer-events-auto inline-flex h-11 w-11 items-center justify-center rounded-full border border-main-0/30 bg-main-0/10 text-main-0 backdrop-blur transition hover:bg-main-0/20 focus:outline-none focus:ring-2 focus:ring-main-0/40"
-          aria-label="Next slide"
-        >
-          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" />
-          </svg>
-        </button>
-      </div>
+  const template = document.createElement("template");
+  template.innerHTML = `
+    <div class="${isOverlay ? "relative" : ""}">
+      <div class="${slidesClass.join(" ")}" data-slides></div>
+
+      ${
+        isOverlay
+          ? `
+        <div class="pointer-events-none absolute inset-x-0 bottom-6 z-10">
+          <div class="mx-auto flex max-w-7xl items-center justify-between px-4">
+            ${
+              showArrows
+                ? `
+              <button
+                type="button"
+                data-prev
+                class="pointer-events-auto ${prevNextBase} ${prevNextOverlay}"
+                aria-label="Previous slide"
+              >
+                <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+            `
+                : "<span></span>"
+            }
+
+            ${
+              showDots
+                ? `<div class="pointer-events-auto flex items-center gap-2" aria-label="Slide navigation" data-dots></div>`
+                : "<span></span>"
+            }
+
+            ${
+              showArrows
+                ? `
+              <button
+                type="button"
+                data-next
+                class="pointer-events-auto ${prevNextBase} ${prevNextOverlay}"
+                aria-label="Next slide"
+              >
+                <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" />
+                </svg>
+              </button>
+            `
+                : "<span></span>"
+            }
+          </div>
+        </div>
+      `
+          : `
+        <div class="mt-8 flex items-center justify-center gap-4">
+          ${
+            showArrows
+              ? `
+            <button
+              type="button"
+              data-prev
+              class="${prevNextBase} ${prevNextStack}"
+              aria-label="Previous slide"
+            >
+              <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+          `
+              : ""
+          }
+
+          ${showDots ? `<div class="flex items-center gap-2" aria-label="Slide navigation" data-dots></div>` : ""}
+
+          ${
+            showArrows
+              ? `
+            <button
+              type="button"
+              data-next
+              class="${prevNextBase} ${prevNextStack}"
+              aria-label="Next slide"
+            >
+              <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 6l6 6-6 6" />
+              </svg>
+            </button>
+          `
+              : ""
+          }
+        </div>
+      `
+      }
     </div>
-  </section>
-`;
+  `;
+
+  return template;
+};
 
 class SiteSlider extends HTMLElement {
   connectedCallback() {
     if (this._rendered) return;
     this._rendered = true;
 
+    this._mode = (this.getAttribute("mode") || "").toLowerCase() || "overlay";
+    this._variant = (this.getAttribute("variant") || "").toLowerCase() || "";
+    this._showArrows = this.getAttribute("arrows") !== "false";
+    this._showDots = this.getAttribute("dots") !== "false";
+
     const initialSlides = Array.from(this.children);
+    const template = buildTemplate({
+      mode: this._mode,
+      variant: this._variant,
+      showArrows: this._showArrows,
+      showDots: this._showDots,
+    });
     this.appendChild(template.content.cloneNode(true));
 
     const slidesRoot = this.querySelector("[data-slides]");
@@ -64,6 +153,8 @@ class SiteSlider extends HTMLElement {
     this._slides = Array.from(this._slidesRoot?.children || []).filter(
       (el) => el.matches && el.matches("hero-slide, [data-slide]")
     );
+    if (this._slides.length === 0) return;
+
     this._dotsRoot = this.querySelector("[data-dots]");
     this._prefersReducedMotion =
       typeof window !== "undefined" &&
@@ -82,6 +173,11 @@ class SiteSlider extends HTMLElement {
 
     const prev = this.querySelector("[data-prev]");
     const next = this.querySelector("[data-next]");
+    const showControls = this._slides.length > 1;
+    if (prev) prev.toggleAttribute("hidden", !showControls || !this._showArrows);
+    if (next) next.toggleAttribute("hidden", !showControls || !this._showArrows);
+    if (this._dotsRoot) this._dotsRoot.toggleAttribute("hidden", !showControls || !this._showDots);
+
     if (prev) prev.addEventListener("click", () => this.#step(-1));
     if (next) next.addEventListener("click", () => this.#step(1));
 
@@ -113,12 +209,17 @@ class SiteSlider extends HTMLElement {
   #renderDots() {
     if (!this._dotsRoot) return;
     this._dotsRoot.innerHTML = "";
+
+    const isStack = this._mode === "stack";
+    const dotBase = "h-2.5 w-2.5 rounded-full border transition focus:outline-none focus:ring-2";
+    const dotOverlay = "border-main-0/40 bg-main-0/20 hover:bg-main-0/40 focus:ring-main-0/40";
+    const dotStack = "border-primary-200 bg-primary-100 hover:bg-primary-200 focus:ring-primary-300";
+
     this._dots = this._slides.map((_, i) => {
       const button = document.createElement("button");
       button.type = "button";
       button.setAttribute("aria-label", `Go to slide ${i + 1}`);
-      button.className =
-        "h-2.5 w-2.5 rounded-full border border-main-0/40 bg-main-0/20 transition hover:bg-main-0/40 focus:outline-none focus:ring-2 focus:ring-main-0/40";
+      button.className = `${dotBase} ${isStack ? dotStack : dotOverlay}`;
       button.addEventListener("click", () => this.#show(i, { animate: true }));
       this._dotsRoot.appendChild(button);
       return button;
@@ -133,19 +234,32 @@ class SiteSlider extends HTMLElement {
   #show(nextIndex, { animate }) {
     this._index = nextIndex;
 
+    const isStack = this._mode === "stack";
     this._slides.forEach((slide, i) => {
       const isActive = i === nextIndex;
-      slide.style.opacity = isActive ? "1" : "0";
-      slide.style.pointerEvents = isActive ? "auto" : "none";
-      slide.style.zIndex = isActive ? "1" : "0";
+
+      if (isStack) {
+        slide.toggleAttribute("hidden", !isActive);
+      } else {
+        slide.style.opacity = isActive ? "1" : "0";
+        slide.style.pointerEvents = isActive ? "auto" : "none";
+        slide.style.zIndex = isActive ? "1" : "0";
+      }
+
       slide.toggleAttribute("aria-hidden", !isActive);
     });
 
     if (this._dots) {
       this._dots.forEach((dot, i) => {
         const isActive = i === nextIndex;
-        dot.classList.toggle("bg-main-0", isActive);
-        dot.classList.toggle("bg-main-0/20", !isActive);
+
+        if (isStack) {
+          dot.classList.toggle("bg-primary-600", isActive);
+          dot.classList.toggle("bg-primary-100", !isActive);
+        } else {
+          dot.classList.toggle("bg-main-0", isActive);
+          dot.classList.toggle("bg-main-0/20", !isActive);
+        }
       });
     }
 

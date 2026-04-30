@@ -56,31 +56,33 @@
 
     <main>
       <!-- Hero -->
-      <site-slider>
-        <hero-slide
-          title="LAND"
-          subtitle="REGISTRATION &amp; DEVELOPMENT"
-          img="assets/images/home/slide-1.jpg"
-          href="/land/"
-          cta="Learn more"
-        ></hero-slide>
+      <section id="theme-main-banner" class="banner-one relative overflow-hidden bg-primary-300">
+        <site-slider variant="hero" mode="overlay">
+          <hero-slide
+            title="LAND"
+            subtitle="REGISTRATION &amp; DEVELOPMENT"
+            img="assets/images/home/slide-1.jpg"
+            href="/land/"
+            cta="Learn more"
+          ></hero-slide>
 
-        <hero-slide
-          title="UAV SERVICE"
-          subtitle="MAPPING &amp; MONITORING"
-          img="assets/images/home/slide-5.jpg"
-          href="/aerial/"
-          cta="Learn more"
-        ></hero-slide>
+          <hero-slide
+            title="UAV SERVICE"
+            subtitle="MAPPING &amp; MONITORING"
+            img="assets/images/home/slide-5.jpg"
+            href="/aerial/"
+            cta="Learn more"
+          ></hero-slide>
 
-        <hero-slide
-          title="DATA"
-          subtitle="COLLECTION TO VISUALIZATION"
-          img="assets/images/home/slide-3.jpg"
-          href="/data/"
-          cta="Learn more"
-        ></hero-slide>
-      </site-slider>
+          <hero-slide
+            title="DATA"
+            subtitle="COLLECTION TO VISUALIZATION"
+            img="assets/images/home/slide-3.jpg"
+            href="/data/"
+            cta="Learn more"
+          ></hero-slide>
+        </site-slider>
+      </section>
 
       <!-- Callout -->
       <section class="border-b border-primary-200 bg-primary-50">
@@ -206,24 +208,26 @@
       <!-- Testimonials -->
       <section class="bg-[url('../images/home/9.jpg')] bg-no-repeat bg-center bg-cover">
         <div class="mx-auto max-w-7xl px-4 py-16">
-          <div class="grid gap-6 lg:grid-cols-3">
-            <div class="rounded-2xl border border-primary-200 bg-main-0 p-6 shadow-sm">
+          <site-slider variant="testimonial" mode="stack" arrows="false">
+            <div data-slide class="rounded-2xl border border-primary-200 bg-main-0 p-6 shadow-sm">
               <p class="text-sm italic text-main-700">“When you struggle with a problem, that's when you understand it.”</p>
               <div class="mt-4">
                 <div class="text-sm font-semibold text-main-900">Elon Musk</div>
                 <div class="text-xs text-primary-500">Founder, SpaceX and Tesla.</div>
               </div>
             </div>
-            <div class="rounded-2xl border border-primary-200 bg-main-0 p-6 shadow-sm">
+
+            <div data-slide class="rounded-2xl border border-primary-200 bg-main-0 p-6 shadow-sm">
               <p class="text-sm italic text-main-700">
                 “How you gather, manage and use information will determine whether you win or lose.”
               </p>
               <div class="mt-4">
-                <div class="text-sm font-semibold text-main-900">Bill Gate.</div>
+                <div class="text-sm font-semibold text-main-900">Bill Gates</div>
                 <div class="text-xs text-primary-500">Founder, Microsoft.</div>
               </div>
             </div>
-            <div class="rounded-2xl border border-primary-200 bg-main-0 p-6 shadow-sm">
+            
+            <div data-slide class="rounded-2xl border border-primary-200 bg-main-0 p-6 shadow-sm">
               <p class="text-sm italic text-main-700">
                 “If we have data, let's look at data. If all we have are opinions, let's go with mine.”
               </p>
@@ -232,7 +236,7 @@
                 <div class="text-xs text-primary-500">CEO, Netscape.</div>
               </div>
             </div>
-          </div>
+          </site-slider>
         </div>
       </section>
 
