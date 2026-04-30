@@ -2,145 +2,46 @@ const template = document.createElement("template");
 template.innerHTML = `
   <section id="theme-main-banner" class="banner-one relative overflow-hidden">
     <div class="relative h-[520px] sm:h-[620px]" data-slides>
-      <div
-        class="absolute inset-0 transition-opacity duration-700 ease-in-out"
+      <hero-slide
         style="opacity: 1; pointer-events: auto; z-index: 1;"
         data-slide
-        data-src="assets/images/home/slide-1.jpg"
         role="group"
         aria-roledescription="slide"
         aria-label="1 of 3"
-      >
-        <img
-          src="assets/images/home/slide-1.jpg"
-          alt=""
-          class="absolute inset-0 h-full w-full object-cover"
-          loading="eager"
-          decoding="async"
-        />
-        <div class="absolute inset-0 bg-primary-950/60"></div>
-        <div class="camera_caption absolute inset-0">
-          <div class="container mx-auto flex h-full max-w-7xl items-center px-4">
-            <div class="max-w-2xl">
-              <h1
-                class="text-4xl font-extrabold tracking-tight text-main-0 sm:text-6xl"
-                data-animate
-                style="--animate-duration: 0.8s; animation-delay: 0s;"
-              >
-                LAND
-              </h1>
-              <h2
-                class="mt-3 text-3xl font-bold tracking-tight text-main-0 sm:text-5xl"
-                data-animate
-                style="--animate-duration: 0.8s; animation-delay: 0.2s;"
-              >
-                REGISTRATION &amp; <br class="hidden sm:block" />DEVELOPMENT
-              </h2>
-              <div class="mt-8" data-animate style="--animate-duration: 0.8s; animation-delay: 0.39s;">
-                <a
-                  href="/land/"
-                  class="inline-flex items-center justify-center rounded-lg bg-main-0 px-5 py-3 text-sm font-semibold text-primary-900 shadow-sm transition hover:bg-primary-100 focus:outline-none focus:ring-2 focus:ring-main-0/40"
-                  >Learn more</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        title="LAND"
+        subtitle="REGISTRATION & DEVELOPMENT"
+        img="assets/images/home/slide-1.jpg"
+        href="/land/"
+        cta="Learn more"
+      ></hero-slide>
 
-      <div
-        class="absolute inset-0 transition-opacity duration-700 ease-in-out"
+      <hero-slide
         style="opacity: 0; pointer-events: none; z-index: 0;"
         data-slide
-        data-src="assets/images/home/slide-5.jpg"
         role="group"
         aria-roledescription="slide"
         aria-label="2 of 3"
         aria-hidden="true"
-      >
-        <img
-          src="assets/images/home/slide-5.jpg"
-          alt=""
-          class="absolute inset-0 h-full w-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-        <div class="absolute inset-0 bg-primary-950/60"></div>
-        <div class="camera_caption absolute inset-0">
-          <div class="container mx-auto flex h-full max-w-7xl items-center px-4">
-            <div class="max-w-2xl">
-              <h1
-                class="text-4xl font-extrabold tracking-tight text-main-0 sm:text-6xl"
-                data-animate
-                style="--animate-duration: 0.8s; animation-delay: 0s;"
-              >
-                UAV SERVICE
-              </h1>
-              <h2
-                class="mt-3 text-3xl font-bold tracking-tight text-main-0 sm:text-5xl"
-                data-animate
-                style="--animate-duration: 0.8s; animation-delay: 0.2s;"
-              >
-                MAPPING &amp; <br class="hidden sm:block" />MONITORING
-              </h2>
-              <div class="mt-8" data-animate style="--animate-duration: 0.8s; animation-delay: 0.39s;">
-                <a
-                  href="/aerial/"
-                  class="inline-flex items-center justify-center rounded-lg bg-main-0 px-5 py-3 text-sm font-semibold text-primary-900 shadow-sm transition hover:bg-primary-100 focus:outline-none focus:ring-2 focus:ring-main-0/40"
-                  >Learn more</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        title="UAV SERVICE"
+        subtitle="MAPPING & MONITORING"
+        img="assets/images/home/slide-5.jpg"
+        href="/aerial/"
+        cta="Learn more"
+      ></hero-slide>
 
-      <div
-        class="absolute inset-0 transition-opacity duration-700 ease-in-out"
+      <hero-slide
         style="opacity: 0; pointer-events: none; z-index: 0;"
         data-slide
-        data-src="assets/images/home/slide-3.jpg"
         role="group"
         aria-roledescription="slide"
         aria-label="3 of 3"
         aria-hidden="true"
-      >
-        <img
-          src="assets/images/home/slide-3.jpg"
-          alt=""
-          class="absolute inset-0 h-full w-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-        <div class="absolute inset-0 bg-primary-950/60"></div>
-        <div class="camera_caption absolute inset-0">
-          <div class="container mx-auto flex h-full max-w-7xl items-center px-4">
-            <div class="max-w-2xl">
-              <h1
-                class="text-4xl font-extrabold tracking-tight text-main-0 sm:text-6xl"
-                data-animate
-                style="--animate-duration: 0.8s; animation-delay: 0s;"
-              >
-                DATA
-              </h1>
-              <h2
-                class="mt-3 text-3xl font-bold tracking-tight text-main-0 sm:text-5xl"
-                data-animate
-                style="--animate-duration: 0.8s; animation-delay: 0.2s;"
-              >
-                COLLECTION TO<br />VISUALIZATION
-              </h2>
-              <div class="mt-8" data-animate style="--animate-duration: 0.8s; animation-delay: 0.39s;">
-                <a
-                  href="/data/"
-                  class="inline-flex items-center justify-center rounded-lg bg-main-0 px-5 py-3 text-sm font-semibold text-primary-900 shadow-sm transition hover:bg-primary-100 focus:outline-none focus:ring-2 focus:ring-main-0/40"
-                  >Learn more</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        title="DATA"
+        subtitle="COLLECTION TO VISUALIZATION"
+        img="assets/images/home/slide-3.jpg"
+        href="/data/"
+        cta="Learn more"
+      ></hero-slide>
     </div>
 
     <!-- Controls -->
