@@ -134,7 +134,7 @@ class SiteSlider extends HTMLElement {
     this._sliceOverlay = null;
   }
 
-  #getSliceOverlay(imgSrc) {
+  #getSliceOverlay(imgSrc, cols) {
     if (!imgSrc) return null;
     if (!this._slidesRoot) return null;
 
@@ -143,9 +143,10 @@ class SiteSlider extends HTMLElement {
     const height = Math.round(rect.height);
     if (!width || !height) return null;
 
-    const colsRaw = this.getAttribute("slices");
-    const cols = Math.min(32, Math.max(6, Number.parseInt(colsRaw || "12", 10) || 12));
-    const sliceW = Math.ceil(width / cols) + 1;
+    const resolvedCols = Math.min(32, Math.max(6, cols || 12));
+
+    // Small overlap to hide seams between slices.
+    const sliceW = Math.ceil(width / resolvedCols) + 1;
 
     const overlay = document.createElement("div");
     overlay.setAttribute("data-slice-overlay", "");
@@ -155,8 +156,8 @@ class SiteSlider extends HTMLElement {
     overlay.style.overflow = "hidden";
     overlay.style.zIndex = "3";
 
-    for (let i = 0; i < cols; i++) {
-      const left = Math.floor(i * (width / cols));
+    for (let i = 0; i < resolvedCols; i++) {
+      const left = Math.floor(i * (width / resolvedCols));
       const slice = document.createElement("div");
       slice.style.position = "absolute";
       slice.style.top = "0";
@@ -173,6 +174,38 @@ class SiteSlider extends HTMLElement {
     }
 
     return overlay;
+  }
+
+  #resolveTransition(prevSlide, nextSlide) {
+    const nextPref = (nextSlide?.getAttribute?.("transition") || nextSlide?.getAttribute?.("data-transition") || "")
+      .toLowerCase()
+      .trim();
+    const prevPref = (prevSlide?.getAttribute?.("transition") || prevSlide?.getAttribute?.("data-transition") || "")
+      .toLowerCase()
+      .trim();
+
+    const raw = nextPref || prevPref || this._resolvedTransition || "fade";
+    if (raw === "random" || raw === "auto") return this.#pickTransition();
+    return raw;
+  }
+
+  #resolveSlices(nextSlide) {
+    const raw = nextSlide?.getAttribute?.("slices") || this.getAttribute("slices") || "12";
+    const parsed = Number.parseInt(raw, 10);
+    if (!Number.isFinite(parsed)) return 12;
+    return Math.min(32, Math.max(6, parsed));
+  }
+
+  #pickTransition() {
+    const options = ["slice", "fade", "slide"];
+    if (options.length === 1) return options[0];
+
+    let next = options[Math.floor(Math.random() * options.length)];
+    if (next === this._lastTransition) {
+      next = options[(options.indexOf(next) + 1) % options.length];
+    }
+    this._lastTransition = next;
+    return next;
   }
 
   connectedCallback() {
@@ -231,7 +264,9 @@ class SiteSlider extends HTMLElement {
       !this._prefersReducedMotion &&
       this.#hasGsap();
 
-    this._resolvedTransition = this._transition || (this._variant === "hero" ? "slice" : "fade");
+    const rawTransition = this._transition || (this._variant === "hero" ? "slice" : "fade");
+    this._resolvedTransition =
+      rawTransition === "random" || rawTransition === "auto" ? "random" : rawTransition;
 
     for (const slide of this._slides) {
       slide.setAttribute("data-slide", "");
@@ -344,6 +379,8 @@ class SiteSlider extends HTMLElement {
 
       this.#cleanupGsap();
 
+      const transition = this.#resolveTransition(prevSlide, nextSlide);
+
       // Hide all non-participating slides during transition.
       this._slides.forEach((slide, i) => {
         if (i !== prevIndex && i !== nextIndex) {
@@ -359,9 +396,9 @@ class SiteSlider extends HTMLElement {
 
       gsap.killTweensOf([prevSlide, nextSlide]);
 
-      if (this._resolvedTransition === "slice" || this._resolvedTransition === "slices") {
+      if (transition === "slice" || transition === "slices") {
         const prevImgSrc = prevSlide.querySelector("img")?.getAttribute("src") || "";
-        const overlay = this.#getSliceOverlay(prevImgSrc);
+        const overlay = this.#getSliceOverlay(prevImgSrc, this.#resolveSlices(nextSlide));
 
         if (!overlay) {
           gsap.set(nextSlide, { opacity: 0 });
@@ -404,6 +441,22 @@ class SiteSlider extends HTMLElement {
             stagger: { each: 0.045, from: "start" },
           });
         }
+      } else if (transition === "slide") {
+        this._gsapTimeline = gsap.timeline({
+          defaults: { ease: "power2.out" },
+          onComplete: () => {
+            gsap.set([prevSlide, nextSlide], { clearProps: "transform" });
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+
+        gsap.set(nextSlide, { opacity: 0, x: 64 });
+        gsap.set(prevSlide, { opacity: 1, x: 0 });
+
+        this._gsapTimeline.to(prevSlide, { opacity: 0, x: -64, duration: 0.75 }, 0);
+        this._gsapTimeline.to(nextSlide, { opacity: 1, x: 0, duration: 0.85 }, 0.05);
       } else {
         // Crossfade slides + subtle "ken burns" on the background image.
         gsap.set(nextSlide, { opacity: 0 });
