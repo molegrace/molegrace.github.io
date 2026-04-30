@@ -12,6 +12,7 @@
   "type": "commonjs",
   "dependencies": {
     "@tailwindcss/cli": "^4.2.4",
+    "animate.css": "^4.1.1",
     "bootstrap-icons": "^1.13.1",
     "tailwindcss": "^4.2.4"
   }
