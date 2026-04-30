@@ -113,6 +113,68 @@ const buildTemplate = ({ mode, variant, showArrows, showDots }) => {
 };
 
 class SiteSlider extends HTMLElement {
+  #hasGsap() {
+    return (
+      typeof window !== "undefined" &&
+      window.gsap &&
+      typeof window.gsap.to === "function" &&
+      typeof window.gsap.set === "function" &&
+      typeof window.gsap.timeline === "function"
+    );
+  }
+
+  #cleanupGsap() {
+    if (this._gsapTimeline) {
+      this._gsapTimeline.kill();
+      this._gsapTimeline = null;
+    }
+    if (this._sliceOverlay && this._sliceOverlay.isConnected) {
+      this._sliceOverlay.remove();
+    }
+    this._sliceOverlay = null;
+  }
+
+  #getSliceOverlay(imgSrc) {
+    if (!imgSrc) return null;
+    if (!this._slidesRoot) return null;
+
+    const rect = this._slidesRoot.getBoundingClientRect();
+    const width = Math.round(rect.width);
+    const height = Math.round(rect.height);
+    if (!width || !height) return null;
+
+    const colsRaw = this.getAttribute("slices");
+    const cols = Math.min(32, Math.max(6, Number.parseInt(colsRaw || "12", 10) || 12));
+    const sliceW = Math.ceil(width / cols) + 1;
+
+    const overlay = document.createElement("div");
+    overlay.setAttribute("data-slice-overlay", "");
+    overlay.style.position = "absolute";
+    overlay.style.inset = "0";
+    overlay.style.pointerEvents = "none";
+    overlay.style.overflow = "hidden";
+    overlay.style.zIndex = "3";
+
+    for (let i = 0; i < cols; i++) {
+      const left = Math.floor(i * (width / cols));
+      const slice = document.createElement("div");
+      slice.style.position = "absolute";
+      slice.style.top = "0";
+      slice.style.left = `${left}px`;
+      slice.style.width = `${sliceW}px`;
+      slice.style.height = "100%";
+      slice.style.backgroundImage = `url("${imgSrc}")`;
+      slice.style.backgroundRepeat = "no-repeat";
+      slice.style.backgroundSize = `${width}px ${height}px`;
+      slice.style.backgroundPosition = `${-left}px 0px`;
+      slice.style.willChange = "transform, opacity";
+      slice.style.backfaceVisibility = "hidden";
+      overlay.appendChild(slice);
+    }
+
+    return overlay;
+  }
+
   connectedCallback() {
     if (this._rendered) return;
     this._rendered = true;
@@ -121,6 +183,7 @@ class SiteSlider extends HTMLElement {
     this._variant = (this.getAttribute("variant") || "").toLowerCase() || "";
     this._showArrows = this.getAttribute("arrows") !== "false";
     this._showDots = this.getAttribute("dots") !== "false";
+    this._transition = (this.getAttribute("transition") || "").toLowerCase() || "";
 
     const initialSlides = Array.from(this.children);
     const template = buildTemplate({
@@ -139,6 +202,7 @@ class SiteSlider extends HTMLElement {
   }
 
   disconnectedCallback() {
+    this.#cleanupGsap();
     if (this._timer) window.clearInterval(this._timer);
     this._timer = null;
     if (this._onVisibilityChange) {
@@ -160,6 +224,14 @@ class SiteSlider extends HTMLElement {
       typeof window !== "undefined" &&
       window.matchMedia &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    this._useGsapTransitions =
+      this._variant === "hero" &&
+      this._mode !== "stack" &&
+      !this._prefersReducedMotion &&
+      this.#hasGsap();
+
+    this._resolvedTransition = this._transition || (this._variant === "hero" ? "slice" : "fade");
 
     for (const slide of this._slides) {
       slide.setAttribute("data-slide", "");
@@ -232,6 +304,7 @@ class SiteSlider extends HTMLElement {
   }
 
   #show(nextIndex, { animate }) {
+    const prevIndex = this._index;
     this._index = nextIndex;
 
     const isStack = this._mode === "stack";
@@ -241,6 +314,7 @@ class SiteSlider extends HTMLElement {
       if (isStack) {
         slide.toggleAttribute("hidden", !isActive);
       } else {
+        // For overlay mode, default to simple opacity; GSAP (hero) may override below.
         slide.style.opacity = isActive ? "1" : "0";
         slide.style.pointerEvents = isActive ? "auto" : "none";
         slide.style.zIndex = isActive ? "1" : "0";
@@ -263,6 +337,94 @@ class SiteSlider extends HTMLElement {
       });
     }
 
+    if (!isStack && this._useGsapTransitions && animate && prevIndex !== nextIndex) {
+      const gsap = window.gsap;
+      const prevSlide = this._slides[prevIndex];
+      const nextSlide = this._slides[nextIndex];
+
+      this.#cleanupGsap();
+
+      // Hide all non-participating slides during transition.
+      this._slides.forEach((slide, i) => {
+        if (i !== prevIndex && i !== nextIndex) {
+          slide.style.opacity = "0";
+          slide.style.pointerEvents = "none";
+          slide.style.zIndex = "0";
+        }
+      });
+
+      nextSlide.style.pointerEvents = "auto";
+      nextSlide.style.zIndex = "2";
+      prevSlide.style.zIndex = "1";
+
+      gsap.killTweensOf([prevSlide, nextSlide]);
+
+      if (this._resolvedTransition === "slice" || this._resolvedTransition === "slices") {
+        const prevImgSrc = prevSlide.querySelector("img")?.getAttribute("src") || "";
+        const overlay = this.#getSliceOverlay(prevImgSrc);
+
+        if (!overlay) {
+          gsap.set(nextSlide, { opacity: 0 });
+          this._gsapTimeline = gsap.timeline({
+            onComplete: () => {
+              nextSlide.style.zIndex = "1";
+              prevSlide.style.zIndex = "0";
+              this._gsapTimeline = null;
+            },
+          });
+          this._gsapTimeline.to(prevSlide, { opacity: 0, duration: 0.7, ease: "power2.out" }, 0);
+          this._gsapTimeline.to(nextSlide, { opacity: 1, duration: 0.85, ease: "power2.out" }, 0.05);
+        } else {
+          this._sliceOverlay = overlay;
+          this._slidesRoot.appendChild(overlay);
+
+          nextSlide.style.opacity = "1";
+          prevSlide.style.opacity = "0";
+
+          const slices = Array.from(overlay.children);
+          gsap.set(slices, { opacity: 1, x: 0, rotationY: 0, z: 0, transformOrigin: "center center" });
+
+          this._gsapTimeline = gsap.timeline({
+            defaults: { ease: "power3.inOut" },
+            onComplete: () => {
+              if (overlay.isConnected) overlay.remove();
+              this._sliceOverlay = null;
+              this._gsapTimeline = null;
+              nextSlide.style.zIndex = "1";
+              prevSlide.style.zIndex = "0";
+            },
+          });
+
+          this._gsapTimeline.to(slices, {
+            duration: 0.9,
+            opacity: 0,
+            x: (i) => (i % 2 ? 90 : -90),
+            rotationY: (i) => (i % 2 ? -70 : 70),
+            z: -220,
+            stagger: { each: 0.045, from: "start" },
+          });
+        }
+      } else {
+        // Crossfade slides + subtle "ken burns" on the background image.
+        gsap.set(nextSlide, { opacity: 0 });
+        this._gsapTimeline = gsap.timeline({
+          onComplete: () => {
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+        this._gsapTimeline.to(prevSlide, { opacity: 0, duration: 0.75, ease: "power2.out" }, 0);
+        this._gsapTimeline.to(nextSlide, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0.05);
+      }
+
+      const nextImg = nextSlide.querySelector("img");
+      if (nextImg) {
+        gsap.killTweensOf(nextImg);
+        gsap.fromTo(nextImg, { scale: 1.06 }, { scale: 1, duration: 1.15, ease: "power2.out" });
+      }
+    }
+
     if (animate && !this._prefersReducedMotion) this.#restartAnimations(this._slides[nextIndex]);
   }
 
@@ -275,6 +437,17 @@ class SiteSlider extends HTMLElement {
 
   #restartAnimations(slide) {
     const items = slide.querySelectorAll("[data-animate]");
+    if (this._variant === "hero" && this.#hasGsap() && !this._prefersReducedMotion) {
+      const gsap = window.gsap;
+      gsap.killTweensOf(items);
+      gsap.fromTo(
+        items,
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", stagger: 0.1, delay: 0.1 }
+      );
+      return;
+    }
+
     for (const el of items) {
       el.classList.remove("animate__animated", "animate__fadeInUp");
       // force reflow to restart animation
