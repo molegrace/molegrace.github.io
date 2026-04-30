@@ -41,16 +41,16 @@ class NewsCard extends HTMLElement {
 
     // Light DOM render so Tailwind styles remain global.
     this.innerHTML = `
-      <article class="overflow-hidden rounded-md border border-primary-200 bg-main-0 shadow-sm">
+      <article class="overflow-hidden rounded-md border border-primary-200 bg-main-0 shadow-2xl">
         <div class="relative">
-          <img src="${safeImg}" alt="${safeImgAlt}" class="h-44 w-full object-cover" loading="lazy" decoding="async" />
+          <img src="${safeImg}" alt="${safeImgAlt}" class="h-60 w-full object-cover" loading="lazy" decoding="async" />
           <div class="absolute left-4 bottom-4 rounded-md bg-primary-700 px-3 py-2 text-xs font-semibold text-main-100">
             ${safeDate}
           </div>
         </div>
         <div class="p-6">
           <h3 class="text-base font-semibold text-main-700">
-            <a class="hover:underline" href="${safeHref}">${safeTitle}</a>
+            <a class="news-card__title hover:underline" href="${safeHref}">${safeTitle}</a>
           </h3>
           <a class="mt-4 inline-flex text-sm font-semibold text-main-800 hover:underline" href="${safeHref}">${safeCta}</a>
         </div>
@@ -62,4 +62,3 @@ class NewsCard extends HTMLElement {
 if (!customElements.get("news-card")) {
   customElements.define("news-card", NewsCard);
 }
-

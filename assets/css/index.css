@@ -384,6 +384,18 @@
     animation: slideIn 0.2s ease-out forwards;
 }
 
+/* Fixed 2-line clamp (prevents card height jump) */
+.news-card__title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5rem;
+    min-height: 3rem;
+    max-height: 3rem;
+}
+
 /*------------------ Feature Banner ---------------*/
 .feature-banner {
     background: url(../images/home/2.jpg) no-repeat center center;
