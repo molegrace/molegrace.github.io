@@ -216,6 +216,8 @@ class SiteSlider extends HTMLElement {
     this._variant = (this.getAttribute("variant") || "").toLowerCase() || "";
     this._showArrows = this.getAttribute("arrows") !== "false";
     this._showDots = this.getAttribute("dots") !== "false";
+    this._autoplay = this.getAttribute("autoplay") !== "false";
+    this._interval = Math.max(1500, Number.parseInt(this.getAttribute("interval") || "7000", 10) || 7000);
     this._transition = (this.getAttribute("transition") || "").toLowerCase() || "";
 
     const initialSlides = Array.from(this.children);
@@ -288,14 +290,14 @@ class SiteSlider extends HTMLElement {
     if (prev) prev.addEventListener("click", () => this.#step(-1));
     if (next) next.addEventListener("click", () => this.#step(1));
 
-    if (!this._prefersReducedMotion) {
-      this._timer = window.setInterval(() => this.#step(1), 7000);
+    if (this._autoplay && !this._prefersReducedMotion) {
+      this._timer = window.setInterval(() => this.#step(1), this._interval);
       this.addEventListener("mouseenter", () => {
         if (this._timer) window.clearInterval(this._timer);
         this._timer = null;
       });
       this.addEventListener("mouseleave", () => {
-        if (!this._timer) this._timer = window.setInterval(() => this.#step(1), 7000);
+        if (!this._timer) this._timer = window.setInterval(() => this.#step(1), this._interval);
       });
 
       document.addEventListener("visibilitychange", this._onVisibilityChange);
@@ -310,7 +312,7 @@ class SiteSlider extends HTMLElement {
       return;
     }
 
-    if (!this._timer) this._timer = window.setInterval(() => this.#step(1), 7000);
+    if (this._autoplay && !this._timer) this._timer = window.setInterval(() => this.#step(1), this._interval);
   }
 
   #renderDots() {
