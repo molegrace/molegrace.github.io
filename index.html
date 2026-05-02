@@ -373,21 +373,21 @@
 
     <!-- Latest news -->
     <section class="bg-main-0">
-      <div class="mx-auto max-w-7xl px-4 py-16">
+      <div class="mx-auto max-w-6xl px-4 py-16">
         <div class="text-center">
           <h2 class="text-4xl font-extrabold uppercase tracking-wide text-main-900 sm:text-5xl">Latest News</h2>
           <div class="mx-auto mt-7 h-1 w-15 rounded-full bg-main-300"></div>
         </div>
 
-        <div class="mt-10 grid gap-6 md:grid-cols-3">
-          <news-card img="/assets/images/blog/3.jpg" img-alt="" date="March 20, 2020" title="Ihumwa Regulization scheme"
-            href="/regulazation/"></news-card>
-
+        <div class="mt-16 flex flex-col gap-12 md:flex-row" data-news-grid>
           <news-card img="/assets/images/blog/4.jpg" img-alt="" date="March 20, 2020" title="Miyuji Regulization scheme"
             href="/regulazation/"></news-card>
 
           <news-card img="/assets/images/blog/5.jpg" img-alt="" date="Jun 30, 2019"
             title="Topographical survey at Service road along Nyerere Road" href="/topo2019/"></news-card>
+
+          <news-card img="/assets/images/blog/3.jpg" img-alt="" date="March 20, 2020" title="Ihumwa Regulization scheme"
+            href="/regulazation/"></news-card>
         </div>
       </div>
     </section>
@@ -399,6 +399,36 @@
   <script type="module" src="./src/ui/hero-slide.js"></script>
   <script type="module" src="./src/ui/slider.js"></script>
   <script type="module" src="./src/ui/news-card.js"></script>
+  <script type="module">
+    const newsGrid = document.querySelector("[data-news-grid]");
+    if (newsGrid) {
+      window.setInterval(() => {
+        const cards = Array.from(newsGrid.children);
+        if (cards.length < 2) return;
+
+        const firstRects = new Map(cards.map((card) => [card, card.getBoundingClientRect()]));
+        newsGrid.appendChild(cards[0]);
+
+        for (const card of cards) {
+          const first = firstRects.get(card);
+          const last = card.getBoundingClientRect();
+          const deltaX = first.left - last.left;
+          const deltaY = first.top - last.top;
+
+          card.animate(
+            [
+              { transform: `translate(${deltaX}px, ${deltaY}px)` },
+              { transform: "translate(0, 0)" },
+            ],
+            {
+              duration: 700,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            }
+          );
+        }
+      }, 6000);
+    }
+  </script>
   <script type="module" src="./src/layout/topnav.js"></script>
   <script type="module" src="./src/layout/footer.js"></script>
 </body>
