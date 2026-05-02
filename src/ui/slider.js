@@ -329,7 +329,10 @@ class SiteSlider extends HTMLElement {
       button.type = "button";
       button.setAttribute("aria-label", `Go to slide ${i + 1}`);
       button.className = `${dotBase} ${isStack ? dotStack : dotOverlay}`;
-      button.addEventListener("click", () => this.#show(i, { animate: true }));
+      button.addEventListener("click", () => {
+        this._direction = i >= this._index ? 1 : -1;
+        this.#show(i, { animate: true });
+      });
       this._dotsRoot.appendChild(button);
       return button;
     });
@@ -337,6 +340,7 @@ class SiteSlider extends HTMLElement {
 
   #step(delta) {
     const nextIndex = (this._index + delta + this._slides.length) % this._slides.length;
+    this._direction = delta >= 0 ? 1 : -1;
     this.#show(nextIndex, { animate: true });
   }
 
@@ -350,6 +354,24 @@ class SiteSlider extends HTMLElement {
 
       if (isStack) {
         slide.toggleAttribute("hidden", !isActive);
+        if (isActive && animate && !this._prefersReducedMotion) {
+          const isSlideTransition = this._resolvedTransition === "slide";
+          slide.animate(
+            [
+              {
+                opacity: 0,
+                transform: isSlideTransition
+                  ? `translateX(${(this._direction || 1) * 72}px)`
+                  : "translateY(18px)",
+              },
+              { opacity: 1, transform: "translateX(0)" },
+            ],
+            {
+              duration: isSlideTransition ? 850 : 650,
+              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+            }
+          );
+        }
       } else {
         // For overlay mode, default to simple opacity; GSAP (hero) may override below.
         slide.style.opacity = isActive ? "1" : "0";
