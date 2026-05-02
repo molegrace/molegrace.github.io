@@ -16,6 +16,7 @@ class NewsCard extends HTMLElement {
     this._rendered = true;
 
     if (!this.style.display) this.style.display = "block";
+    this.classList.add("min-w-0", "md:flex-1");
     this.#render();
   }
 
@@ -41,18 +42,18 @@ class NewsCard extends HTMLElement {
 
     // Light DOM render so Tailwind styles remain global.
     this.innerHTML = `
-      <article class="overflow-hidden rounded-md border border-primary-200 bg-main-0 shadow-2xl">
-        <div class="relative">
-          <img src="${safeImg}" alt="${safeImgAlt}" class="h-60 w-full object-cover" loading="lazy" decoding="async" />
-          <div class="absolute left-4 bottom-4 rounded-md bg-primary-700 px-3 py-2 text-xs font-semibold text-main-100">
+      <article class="group h-full left-0 ">
+        <div class="relative overflow-hidden rounded-md bg-primary-100">
+          <img src="${safeImg}" alt="${safeImgAlt}" class="h-[250px]  w-full object-cover transition duration-900 ease-out group-hover:scale-150" loading="lazy" decoding="async" />
+          <div class="absolute bottom-5 left-5 rounded-md bg-primary-700 px-4 py-1 text-sm font-semibold text-main-0">
             ${safeDate}
           </div>
         </div>
-        <div class="p-6">
-          <h3 class="text-base font-semibold text-main-700">
-            <a class="news-card__title hover:underline" href="${safeHref}">${safeTitle}</a>
+        <div class="pt-8">
+          <h3 class="text-lg font-bold leading-snug text-main-900">
+            ${safeTitle}
           </h3>
-          <a class="mt-4 inline-flex text-sm font-semibold text-main-800 hover:underline" href="${safeHref}">${safeCta}</a>
+          <a class="mt-7 top-0 inline-flex text-sm font-bold uppercase text-primary-700 transition hover:text-primary-700 hover:underline" href="${safeHref}">${safeCta}</a>
         </div>
       </article>
     `;
