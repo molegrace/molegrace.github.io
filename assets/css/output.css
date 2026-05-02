@@ -1359,6 +1359,30 @@
   .bg-primary-700 {
     background-color: var(--color-primary-700);
   }
+  .bg-primary-700\/50 {
+    background-color: var(--color-primary-700);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-primary-700) 50%, transparent);
+    }
+  }
+  .bg-primary-700\/70 {
+    background-color: var(--color-primary-700);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-primary-700) 70%, transparent);
+    }
+  }
+  .bg-primary-700\/80 {
+    background-color: var(--color-primary-700);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-primary-700) 80%, transparent);
+    }
+  }
+  .bg-primary-700\/800 {
+    background-color: var(--color-primary-700);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-primary-700) 800%, transparent);
+    }
+  }
   .bg-primary-800 {
     background-color: var(--color-primary-800);
   }
@@ -1449,6 +1473,9 @@
   }
   .bg-\[url\(\'\.\/assets\/images\/home\/inner-banner\.jpg\'\)\] {
     background-image: url('./assets/images/home/inner-banner.jpg');
+  }
+  .bg-\[url\(\'\/assets\/images\/home\/11\.jpg\'\)\] {
+    background-image: url('/assets/images/home/11.jpg');
   }
   .bg-\[url\(\'\/assets\/images\/home\/inner-banner\.jpg\'\)\] {
     background-image: url('/assets/images/home/inner-banner.jpg');
@@ -1588,8 +1615,14 @@
   .pt-9 {
     padding-top: calc(var(--spacing) * 9);
   }
+  .pr-5 {
+    padding-right: calc(var(--spacing) * 5);
+  }
   .pr-6 {
     padding-right: calc(var(--spacing) * 6);
+  }
+  .pr-12 {
+    padding-right: calc(var(--spacing) * 12);
   }
   .pb-2 {
     padding-bottom: calc(var(--spacing) * 2);
@@ -1611,6 +1644,9 @@
   }
   .pl-10 {
     padding-left: calc(var(--spacing) * 10);
+  }
+  .pl-12 {
+    padding-left: calc(var(--spacing) * 12);
   }
   .text-center {
     text-align: center;
