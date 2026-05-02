@@ -1287,6 +1287,9 @@
   .\[background-image\:radial-gradient\(circle_at_1px_1px\,rgba\(255\,255\,255\,0\.35\)_1px\,transparent_0\)\] {
     background-image: radial-gradient(circle at 1px 1px,rgba(255,255,255,0.35) 1px,transparent 0);
   }
+  .bg-\[radial-gradient\(circle_at_1px_1px\,rgba\(255\,255\,255\,0\.22\)_1px\,transparent_0\)\] {
+    background-image: radial-gradient(circle at 1px 1px,rgba(255,255,255,0.22) 1px,transparent 0);
+  }
   .bg-\[url\(\'\.\.\/images\/home\/9\.jpg\'\)\] {
     background-image: url('../images/home/9.jpg');
   }
@@ -1307,6 +1310,9 @@
   }
   .bg-cover {
     background-size: cover;
+  }
+  .bg-size-\[28px_28px\] {
+    background-size: 28px 28px;
   }
   .bg-fixed {
     background-attachment: fixed;
@@ -1799,6 +1805,12 @@
     &::after {
       content: var(--tw-content);
       top: 72px;
+    }
+  }
+  .after\:-right-3\.5 {
+    &::after {
+      content: var(--tw-content);
+      right: calc(var(--spacing) * -3.5);
     }
   }
   .after\:right-\[-14px\] {
