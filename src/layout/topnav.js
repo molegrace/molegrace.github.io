@@ -45,100 +45,142 @@ template.innerHTML = `
 
           <nav class="hidden items-center gap-1 md:flex" aria-label="Primary navigation">
 
-            <a href="/" class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:bg-main-0 hover:text-main-900">Home</a>
-
+            <a href="/" class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:text-main-900">Home</a>
             <span class="text-main-600">|</span>
 
-            <a href="/about/" class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:bg-main-0 hover:text-main-900">About us</a>
-
+            <a href="/about/" class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:text-main-900">About us</a>
             <span class="text-main-600">|</span>
 
-            <!-- Service -->
+            <!-- SERVICE -->
             <div class="relative" data-dropdown>
               <button type="button" data-dropdown-trigger
-                class="nav-link uppercase inline-flex items-center gap-1 rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:bg-main-0 hover:text-main-900"
+                class="nav-link uppercase inline-flex items-center gap-1 rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:text-main-900"
                 aria-expanded="false">
                 Service
                 <i class="bi bi-chevron-down text-sm"></i>
               </button>
 
-              <div data-dropdown-menu class="absolute left-0 top-full z-50 mt-2 hidden w-56 overflow-hidden rounded-xl border border-main-200 bg-white shadow-lg">
-                <a href="/land/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">Land registration</a>
-                <a href="/data/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">Data Services</a>
-                <a href="/aerial/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">UAV Services</a>
+              <div data-dropdown-menu
+                class="absolute left-0 top-full z-50 hidden w-56 bg-white shadow-lg border-t border-main-200">
+
+                <a href="/land/"
+                   class="group relative block w-full px-4 py-2.5 text-sm text-main-700 overflow-hidden border-b border-main-200 hover:border-0">
+                  <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                  <span class="relative z-10 group-hover:text-white transition-colors duration-200">Land registration</span>
+                </a>
+
+                <a href="/data/"
+                   class="group relative block w-full px-4 py-2.5 text-sm text-main-700 overflow-hidden border-b border-main-200 hover:border-primary-0">
+                  <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                  <span class="relative z-10 group-hover:text-white transition-colors duration-200">Data Services</span>
+                </a>
+
+                <a href="/aerial/"
+                   class="group relative block w-full px-4 py-2.5 text-sm text-main-700 overflow-hidden border-b border-main-200 hover:border-0">
+                  <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                  <span class="relative z-10 group-hover:text-white transition-colors duration-200">UAV Services</span>
+                </a>
               </div>
             </div>
 
             <span class="text-main-600">|</span>
 
-
-            <a href="/contact/" class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:bg-main-0 hover:text-main-900">
+            <a href="/contact/" class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:text-main-900">
               Contact
             </a>
 
             <span class="text-main-600">|</span>
 
-            <!-- Resource (now same style as others) -->
+            <!-- RESOURCE -->
             <div class="relative" data-dropdown>
               <button type="button" data-dropdown-trigger
-                class="nav-link uppercase inline-flex items-center gap-1 rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:bg-main-0 hover:text-main-900"
+                class="nav-link uppercase inline-flex items-center gap-1 rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:text-main-900"
                 aria-expanded="false">
                 Resource
                 <i class="bi bi-chevron-down text-sm"></i>
               </button>
 
-              <div data-dropdown-menu class="absolute left-0 top-full z-50 mt-2 hidden w-48 overflow-hidden rounded-xl border border-main-200 bg-white shadow-lg">
-                <a href="/project/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">Portfolio</a>
-                <a href="/faq/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">FAQ</a>
+              <div data-dropdown-menu
+                class="absolute left-0 top-full z-50 hidden w-48 border-t border-main-200 bg-white shadow-lg">
+
+                <a href="/projects/"
+                   class="group relative block w-full px-4 py-2.5 text-sm text-main-700 overflow-hidden border-b border-main-200 hover:border-0">
+                  <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                  <span class="relative z-10 group-hover:text-white transition-colors duration-200">Portfolio</span>
+                </a>
+
+                <a href="/faq/"
+                   class="group relative block w-full px-4 py-2.5 text-sm text-main-700 overflow-hiddenborder-b border-main-200 hover:border-0">
+                  <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                  <span class="relative z-10 group-hover:text-white transition-colors duration-200">FAQ</span>
+                </a>
               </div>
             </div>
 
             <span class="text-main-600">|</span>
 
-            <!-- Self Service (now same style as others, no CTA look) -->
             <a href="https://www.databenki.com/gps/"
-              class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:bg-main-0 hover:text-main-900">
+              class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:text-main-900">
               Self Service
             </a>
 
           </nav>
         </div>
 
-        <!-- mobile nav -->
-        <div data-mobile-nav class="mt-4 hidden rounded-xl border border-main-200 bg-white p-2 md:hidden">
+        <!-- MOBILE -->
+        <div data-mobile-nav class="mt-4 hidden border border-main-200 bg-white p-2 md:hidden">
 
-          <a href="/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">Home</a>
-          <a href="/about/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">About us</a>
+          <a href="/" class="block px-3 py-2 text-sm font-medium">Home</a>
+          <a href="/about/" class="block px-3 py-2 text-sm font-medium">About us</a>
 
           <div data-mobile-dropdown>
-            <button type="button" data-mobile-dropdown-trigger class="flex w-full justify-between rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">
-              Service
-              <i class="bi bi-chevron-down"></i>
+            <button type="button" data-mobile-dropdown-trigger class="flex w-full justify-between px-3 py-2 text-sm font-medium">
+              Service <i class="bi bi-chevron-down"></i>
             </button>
 
             <div data-mobile-dropdown-menu class="hidden px-2 pb-2">
-              <a href="/land/" class="block px-3 py-2 text-sm hover:bg-main-50">Land registration</a>
-              <a href="/data/" class="block px-3 py-2 text-sm hover:bg-main-50">Data Services</a>
-              <a href="/aerial/" class="block px-3 py-2 text-sm hover:bg-main-50">UAV Services</a>
+
+              <a href="/land/" class="group relative block w-full px-3 py-2 text-sm overflow-hidden">
+                <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                <span class="relative z-10 group-hover:text-white">Land registration</span>
+              </a>
+
+              <a href="/data/" class="group relative block w-full px-3 py-2 text-sm overflow-hidden">
+                <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                <span class="relative z-10 group-hover:text-white">Data Services</span>
+              </a>
+
+              <a href="/aerial/" class="group relative block w-full px-3 py-2 text-sm overflow-hidden">
+                <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                <span class="relative z-10 group-hover:text-white">UAV Services</span>
+              </a>
+
             </div>
           </div>
 
-          <a href="/contact/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">Contact</a>
+          <a href="/contact/" class="block px-3 py-2 text-sm font-medium">Contact</a>
 
           <div data-mobile-dropdown>
-            <button type="button" data-mobile-dropdown-trigger class="flex w-full justify-between rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">
-              Resource
-              <i class="bi bi-chevron-down"></i>
+            <button type="button" data-mobile-dropdown-trigger class="flex w-full justify-between px-3 py-2 text-sm font-medium">
+              Resource <i class="bi bi-chevron-down"></i>
             </button>
 
             <div data-mobile-dropdown-menu class="hidden px-2 pb-2">
-              <a href="/project/" class="block px-3 py-2 text-sm hover:bg-main-50">Portfolio</a>
-              <a href="/faq/" class="block px-3 py-2 text-sm hover:bg-main-50">FAQ</a>
+
+              <a href="/project/" class="group relative block w-full px-3 py-2 text-sm overflow-hidden">
+                <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                <span class="relative z-10 group-hover:text-white">Portfolio</span>
+              </a>
+
+              <a href="/faq/" class="group relative block w-full px-3 py-2 text-sm overflow-hidden">
+                <span class="absolute inset-0 bg-primary-700 scale-x-0 origin-left transition-transform duration-300 group-hover:scale-x-100 pointer-events-none"></span>
+                <span class="relative z-10 group-hover:text-white">FAQ</span>
+              </a>
+
             </div>
           </div>
 
-          <a href="https://www.databenki.com/gps/"
-             class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">
+          <a href="https://www.databenki.com/gps/" class="block px-3 py-2 text-sm font-medium">
             Self Service
           </a>
 
