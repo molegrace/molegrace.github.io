@@ -44,7 +44,7 @@ class NewsCard extends HTMLElement {
     this.innerHTML = `
       <article class="group h-full left-0 ">
         <div class="relative overflow-hidden rounded-md bg-primary-100">
-          <img src="${safeImg}" alt="${safeImgAlt}" class="h-[250px]  w-full object-cover transition duration-900 ease-out group-hover:scale-150" loading="lazy" decoding="async" />
+          <img src="${safeImg}" alt="${safeImgAlt}" class="h-62.5  w-full object-cover transition duration-900 ease-out group-hover:scale-150" loading="lazy" decoding="async" />
           <div class="absolute bottom-5 left-5 rounded-md bg-primary-700 px-4 py-1 text-sm font-semibold text-main-0">
             ${safeDate}
           </div>
