@@ -28,16 +28,16 @@ template.innerHTML = `
     </div>
 
     <div id="topnav" class="bg-white sticky top-0 z-50 transition-all duration-300">
-      <div class="mx-auto max-w-7xl px-4 py-4">
+      <div class="mx-auto max-w-7xl px-4 py-5">
         <div class="flex items-center justify-between gap-4">
 
           <a href="/" class="flex items-center gap-3">
-            <img src="/assets/images/logo/logo.png" alt="DataBENKI" class="h-16 w-auto" />
+            <img src="/assets/images/logo/logo.png" alt="DataBENKI" class="h-12 w-auto" />
           </a>
 
           <div class="flex items-center gap-2 md:hidden">
             <button type="button" data-nav-toggle
-              class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-700 transition hover:bg-slate-50"
+              class="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-main-200 text-main-700 transition hover:bg-main-50"
               aria-label="Open menu" aria-expanded="false">
               <i class="bi bi-list text-xl"></i>
             </button>
@@ -47,7 +47,11 @@ template.innerHTML = `
 
             <a href="/" class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:bg-main-0 hover:text-main-900">Home</a>
 
+            <span class="text-main-600">|</span>
+
             <a href="/about/" class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:bg-main-0 hover:text-main-900">About us</a>
+
+            <span class="text-main-600">|</span>
 
             <!-- Service -->
             <div class="relative" data-dropdown>
@@ -58,16 +62,21 @@ template.innerHTML = `
                 <i class="bi bi-chevron-down text-sm"></i>
               </button>
 
-              <div data-dropdown-menu class="absolute left-0 top-full z-50 mt-2 hidden w-56 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
-                <a href="/land/" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50">Land registration</a>
-                <a href="/data/" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50">Data Services</a>
-                <a href="/aerial/" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50">UAV Services</a>
+              <div data-dropdown-menu class="absolute left-0 top-full z-50 mt-2 hidden w-56 overflow-hidden rounded-xl border border-main-200 bg-white shadow-lg">
+                <a href="/land/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">Land registration</a>
+                <a href="/data/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">Data Services</a>
+                <a href="/aerial/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">UAV Services</a>
               </div>
             </div>
+
+            <span class="text-main-600">|</span>
+
 
             <a href="/contact/" class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:bg-main-0 hover:text-main-900">
               Contact
             </a>
+
+            <span class="text-main-600">|</span>
 
             <!-- Resource (now same style as others) -->
             <div class="relative" data-dropdown>
@@ -78,11 +87,13 @@ template.innerHTML = `
                 <i class="bi bi-chevron-down text-sm"></i>
               </button>
 
-              <div data-dropdown-menu class="absolute left-0 top-full z-50 mt-2 hidden w-48 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
-                <a href="/project/" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50">Portfolio</a>
-                <a href="/faq/" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50">FAQ</a>
+              <div data-dropdown-menu class="absolute left-0 top-full z-50 mt-2 hidden w-48 overflow-hidden rounded-xl border border-main-200 bg-white shadow-lg">
+                <a href="/project/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">Portfolio</a>
+                <a href="/faq/" class="block px-4 py-2.5 text-sm text-main-700 hover:bg-main-50">FAQ</a>
               </div>
             </div>
+
+            <span class="text-main-600">|</span>
 
             <!-- Self Service (now same style as others, no CTA look) -->
             <a href="https://www.databenki.com/gps/"
@@ -94,40 +105,40 @@ template.innerHTML = `
         </div>
 
         <!-- mobile nav -->
-        <div data-mobile-nav class="mt-4 hidden rounded-xl border border-slate-200 bg-white p-2 md:hidden">
+        <div data-mobile-nav class="mt-4 hidden rounded-xl border border-main-200 bg-white p-2 md:hidden">
 
-          <a href="/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-slate-50">Home</a>
-          <a href="/about/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-slate-50">About us</a>
+          <a href="/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">Home</a>
+          <a href="/about/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">About us</a>
 
           <div data-mobile-dropdown>
-            <button type="button" data-mobile-dropdown-trigger class="flex w-full justify-between rounded-lg px-3 py-2 text-sm font-medium hover:bg-slate-50">
+            <button type="button" data-mobile-dropdown-trigger class="flex w-full justify-between rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">
               Service
               <i class="bi bi-chevron-down"></i>
             </button>
 
             <div data-mobile-dropdown-menu class="hidden px-2 pb-2">
-              <a href="/land/" class="block px-3 py-2 text-sm hover:bg-slate-50">Land registration</a>
-              <a href="/data/" class="block px-3 py-2 text-sm hover:bg-slate-50">Data Services</a>
-              <a href="/aerial/" class="block px-3 py-2 text-sm hover:bg-slate-50">UAV Services</a>
+              <a href="/land/" class="block px-3 py-2 text-sm hover:bg-main-50">Land registration</a>
+              <a href="/data/" class="block px-3 py-2 text-sm hover:bg-main-50">Data Services</a>
+              <a href="/aerial/" class="block px-3 py-2 text-sm hover:bg-main-50">UAV Services</a>
             </div>
           </div>
 
-          <a href="/contact/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-slate-50">Contact</a>
+          <a href="/contact/" class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">Contact</a>
 
           <div data-mobile-dropdown>
-            <button type="button" data-mobile-dropdown-trigger class="flex w-full justify-between rounded-lg px-3 py-2 text-sm font-medium hover:bg-slate-50">
+            <button type="button" data-mobile-dropdown-trigger class="flex w-full justify-between rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">
               Resource
               <i class="bi bi-chevron-down"></i>
             </button>
 
             <div data-mobile-dropdown-menu class="hidden px-2 pb-2">
-              <a href="/project/" class="block px-3 py-2 text-sm hover:bg-slate-50">Portfolio</a>
-              <a href="/faq/" class="block px-3 py-2 text-sm hover:bg-slate-50">FAQ</a>
+              <a href="/project/" class="block px-3 py-2 text-sm hover:bg-main-50">Portfolio</a>
+              <a href="/faq/" class="block px-3 py-2 text-sm hover:bg-main-50">FAQ</a>
             </div>
           </div>
 
           <a href="https://www.databenki.com/gps/"
-             class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-slate-50">
+             class="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-main-50">
             Self Service
           </a>
 
@@ -153,7 +164,7 @@ class TopNav extends HTMLElement {
     this.querySelectorAll("a[href]").forEach(link => {
       const href = link.getAttribute("href");
       if (href === currentPath) {
-        link.classList.add("text-slate-900", "font-semibold");
+        link.classList.add("text-main-900", "font-semibold");
       }
     });
   }
