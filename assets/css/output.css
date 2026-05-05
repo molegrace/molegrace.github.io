@@ -634,6 +634,9 @@
   .col-12 {
     grid-column: 12;
   }
+  .float-left {
+    float: left;
+  }
   .container {
     width: 100%;
     @media (width >= 0) {
