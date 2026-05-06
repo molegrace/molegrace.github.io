@@ -799,8 +799,14 @@
   .h-14 {
     height: calc(var(--spacing) * 14);
   }
+  .h-15 {
+    height: calc(var(--spacing) * 15);
+  }
   .h-16 {
     height: calc(var(--spacing) * 16);
+  }
+  .h-17 {
+    height: calc(var(--spacing) * 17);
   }
   .h-19 {
     height: calc(var(--spacing) * 19);
@@ -808,11 +814,20 @@
   .h-20 {
     height: calc(var(--spacing) * 20);
   }
+  .h-25 {
+    height: calc(var(--spacing) * 25);
+  }
   .h-28 {
     height: calc(var(--spacing) * 28);
   }
   .h-28\.5 {
     height: calc(var(--spacing) * 28.5);
+  }
+  .h-30 {
+    height: calc(var(--spacing) * 30);
+  }
+  .h-45 {
+    height: calc(var(--spacing) * 45);
   }
   .h-60 {
     height: calc(var(--spacing) * 60);
@@ -828,6 +843,9 @@
   }
   .h-96 {
     height: calc(var(--spacing) * 96);
+  }
+  .h-120 {
+    height: calc(var(--spacing) * 120);
   }
   .h-\[400px\] {
     height: 400px;
@@ -1180,6 +1198,9 @@
   .border-t-transparent {
     border-top-color: transparent;
   }
+  .bg-black {
+    background-color: var(--color-black);
+  }
   .bg-black\/60 {
     background-color: color-mix(in srgb, #000 60%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -1306,6 +1327,9 @@
   .bg-\[url\(\'\/assets\/\/assets\/images\/home\/slide-5\.jpg\'\)\] {
     background-image: url('/assets//assets/images/home/slide-5.jpg');
   }
+  .bg-\[url\(\'\/assets\/images\/home\/\.jpg\'\)\] {
+    background-image: url('/assets/images/home/.jpg');
+  }
   .bg-\[url\(\'\/assets\/images\/home\/11\.jpg\'\)\] {
     background-image: url('/assets/images/home/11.jpg');
   }
@@ -1314,6 +1338,9 @@
   }
   .bg-\[url\(\'\/assets\/images\/home\/20\.jpg\'\)\] {
     background-image: url('/assets/images/home/20.jpg');
+  }
+  .bg-\[url\(\'\/assets\/images\/home\/22\.jpg\'\)\] {
+    background-image: url('/assets/images/home/22.jpg');
   }
   .bg-\[url\(\'\/assets\/images\/home\/inner-banner\.jpg\'\)\] {
     background-image: url('/assets/images/home/inner-banner.jpg');
@@ -1422,6 +1449,9 @@
   }
   .py-16 {
     padding-block: calc(var(--spacing) * 16);
+  }
+  .py-17 {
+    padding-block: calc(var(--spacing) * 17);
   }
   .py-20 {
     padding-block: calc(var(--spacing) * 20);

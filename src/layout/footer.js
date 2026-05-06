@@ -5,9 +5,9 @@ template.innerHTML = `
       <!-- Brand -->
       <div class="lg:col-span-4">
         <a href="/" class="inline-flex items-center gap-3">
-          <img src="/assets/images/logo/logo2.png" alt="DataBENKI" class="h-10 w-auto" />
+          <img src="/assets/images/logo/logo2.png" alt="DataBENKI" class="h-25 w-auto" />
         </a>
-        <p class="mt-4 text-sm leading-relaxed text-slate-300">
+        <p class="mt-4 text-lg leading-relaxed text-slate-300">
           We have qualified and Experienced team for data collection,processing and
           visualization.
           <br />
@@ -49,8 +49,8 @@ template.innerHTML = `
 
       <!-- Solutions -->
       <div class="lg:col-span-2">
-        <h6 class="text-sm font-semibold tracking-widest text-white">SOLUTIONS</h6>
-        <ul class="mt-4 space-y-2 text-sm text-slate-300">
+        <h6 class="text-xl font-semibold tracking-widest text-white">SOLUTIONS</h6>
+        <ul class="mt-4 space-y-2 text-lg text-slate-300">
           <li><a class="hover:text-white" href="/land/">Land registration</a></li>
           <li><a class="hover:text-white" href="/data/">Data Services</a></li>
           <li><a class="hover:text-white" href="/aerial/">UAV Services</a></li>
@@ -64,7 +64,7 @@ template.innerHTML = `
 
       <!-- Gallery -->
       <div class="lg:col-span-3">
-        <h6 class="text-sm font-semibold tracking-widest text-white">GALLERY</h6>
+        <h6 class="text-xl font-semibold tracking-widest text-white">GALLERY</h6>
         <div class="mt-4 grid grid-cols-3 gap-2">
           <a href="/assets/images/portfolio/7.jpg" data-fancybox="gallery" data-caption="Data Collection for Ihumwa Spatial unit,Dodoma"
             class="group block overflow-hidden rounded-lg border border-white/10">
@@ -95,8 +95,8 @@ template.innerHTML = `
 
       <!-- Contact -->
       <div class="lg:col-span-3">
-        <h6 class="text-sm font-semibold tracking-widest text-white">CONTACT</h6>
-        <ul class="mt-4 space-y-3 text-sm text-slate-300">
+        <h6 class="text-xl font-semibold tracking-widest text-white">CONTACT</h6>
+        <ul class="mt-4 space-y-3 text-lg text-slate-300">
           <li class="flex items-start gap-3">
             <span class="mt-0.5 inline-flex h-9 w-9 items-center justify-center rounded-lg bg-white/5 text-slate-200">
               <svg viewBox="0 0 24 24" class="h-5 w-5 fill-none stroke-current" aria-hidden="true">
@@ -131,8 +131,8 @@ template.innerHTML = `
     </div>
 
     <div class="border-t border-white/10">
-      <div class="mx-auto max-w-7xl px-4 py-6">
-        <p class="text-sm text-slate-400">
+      <div class="mx-auto max-w-7xl px-4 py-6 text-center">
+        <p class="text-lg text-slate-400" >
           &copy; <span data-current-year></span>. Databenki Group of companies Limited. All Rights Reserved.
         </p>
       </div>
