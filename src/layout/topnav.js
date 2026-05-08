@@ -107,8 +107,8 @@ template.innerHTML = `
   </div>
 
   <!-- NAV -->
-  <div id="topnav" class="bg-white sticky top-0 z-50 transition-all duration-300">
-    <div class="mx-auto max-w-7xl px-4 py-5">
+  <div id="topnav" class="bg-white transition-all duration-300">
+    <div class="mx-auto max-w-7xl px-2 py-10 ">
 
       <div class="flex items-center justify-between">
 
@@ -132,6 +132,8 @@ template.innerHTML = `
 
     </div>
   </div>
+
+  <div data-nav-placeholder class="hidden"></div>
 
 </header>
 `;
@@ -157,8 +159,54 @@ class TopNav extends HTMLElement {
   }
 
   wire() {
+    const topnav = this.querySelector("#topnav");
+    const navPlaceholder = this.querySelector("[data-nav-placeholder]");
     const navToggle = this.querySelector("[data-nav-toggle]");
     const mobileNav = this.querySelector("[data-mobile-nav]");
+    let pinNavTimer = null;
+    let navPinned = false;
+
+    const setNavPinned = pinned => {
+      if (!topnav || !navPlaceholder) return;
+
+      navPinned = pinned;
+      navPlaceholder.style.height = pinned ? `${topnav.offsetHeight}px` : "0px";
+      navPlaceholder.classList.toggle("hidden", !pinned);
+      topnav.classList.toggle("fixed", pinned);
+      topnav.classList.toggle("left-0", pinned);
+      topnav.classList.toggle("right-0", pinned);
+      topnav.classList.toggle("top-0", pinned);
+      topnav.classList.toggle("z-50", pinned);
+      topnav.classList.toggle("shadow-md", pinned);
+    };
+
+    const updatePinnedNav = () => {
+      const isScrolled = window.scrollY > 0;
+
+      if (!isScrolled) {
+        clearTimeout(pinNavTimer);
+        pinNavTimer = null;
+        setNavPinned(false);
+        return;
+      }
+
+      if (navPinned || pinNavTimer) return;
+
+      pinNavTimer = setTimeout(() => {
+        pinNavTimer = null;
+        if (window.scrollY > 0) {
+          setNavPinned(true);
+        }
+      }, 1200);
+    };
+
+    updatePinnedNav();
+    window.addEventListener("scroll", updatePinnedNav, { passive: true });
+    window.addEventListener("resize", () => {
+      if (navPinned) {
+        setNavPinned(true);
+      }
+    });
 
     navToggle?.addEventListener("click", () => {
       mobileNav.classList.toggle("hidden");
