@@ -28,6 +28,32 @@
   <link rel="icon" type="image/png" sizes="56x56" href="/assets/images/fav-icon/icon.png" />
   <link href="assets/css/output.css" rel="stylesheet" />
   <link href="assets/css/animate.min.css" rel="stylesheet" />
+  <style>
+    [data-logo-track],
+    [data-news-track] {
+      will-change: transform;
+    }
+
+    [data-logo-track] > div {
+      flex: 0 0 20%;
+    }
+
+    [data-news-track] > news-card {
+      flex: 0 0 100%;
+    }
+
+    @media (min-width: 768px) {
+      [data-news-track] > news-card {
+        flex-basis: calc((100% - 4rem) / 3);
+      }
+    }
+
+    @media (max-width: 640px) {
+      [data-logo-track] > div {
+        flex-basis: 50%;
+      }
+    }
+  </style>
 
 
   <script src="https://www.google.com/recaptcha/enterprise.js?render=6LewxLoqAAAAAC3-h4_715gzYqWIpRDoVQcU9o1J"></script>
@@ -110,7 +136,7 @@
 </section>
 
     <!-- About -->
-    <section class="bg-main-0">
+    <section class="bg-main-0 mt-">
       <div class="mx-auto max-w-7xl px-4 py-16">
         <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div class="overflow-hidden rounded-2xl border border-primary-200 bg-primary-100">
@@ -352,19 +378,32 @@
     </section>
 
     <!-- Partners -->
-    <section class="bg-main-0">
-      <div class="mx-auto max-w-7xl px-4 py-14">
+    <section class="bg-primary-50">
+      <div class="mx-auto max-w-7xl px-4 py-10">
         <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
           <div class="lg:col-span-3">
-            <h2 class="text-xl font-bold tracking-tight">OUR PARTNERS</h2>
+            <h2 class="text-xl font-bold tracking-tight text-main-800">
+              OUR <br />
+              PARTNERS
+            </h2>
           </div>
-          <div class="lg:col-span-9">
-            <div class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
-              <img src="/assets/images/logo/p-1.png" alt="" class="h-10 w-auto opacity-80" loading="lazy" />
-              <img src="/assets/images/logo/p-2.png" alt="" class="h-10 w-auto opacity-80" loading="lazy" />
-              <img src="/assets/images/logo/p-3.png" alt="" class="h-10 w-auto opacity-80" loading="lazy" />
-              <img src="/assets/images/logo/p-4.png" alt="" class="h-10 w-auto opacity-80" loading="lazy" />
-              <img src="/assets/images/logo/p-5.png" alt="" class="h-10 w-auto opacity-80" loading="lazy" />
+          <div class="lg:col-span-9 overflow-hidden">
+            <div class="flex items-center" data-logo-track>
+              <div class="flex justify-center">
+                <img src="/assets/images/logo/p-1.png" alt="" class="h-16 w-auto opacity-80" loading="lazy" />
+              </div>
+              <div class="flex justify-center">
+                <img src="/assets/images/logo/p-2.png" alt="" class="h-16 w-auto opacity-80" loading="lazy" />
+              </div>
+              <div class="flex justify-center">
+                <img src="/assets/images/logo/p-3.png" alt="" class="h-16 w-auto opacity-80" loading="lazy" />
+              </div>
+              <div class="flex justify-center">
+                <img src="/assets/images/logo/p-4.png" alt="" class="h-16 w-auto opacity-80" loading="lazy" />
+              </div>
+              <div class="flex justify-center">
+                <img src="/assets/images/logo/p-5.png" alt="" class="h-16 w-auto opacity-80" loading="lazy" />
+              </div>
             </div>
           </div>
         </div>
@@ -373,21 +412,23 @@
 
     <!-- Latest news -->
     <section class="bg-main-0">
-      <div class="mx-auto max-w-6xl px-4 py-16">
+      <div class="mx-auto max-w-7xl px-2 py-16">
         <div class="text-center">
           <h2 class="text-4xl font-extrabold uppercase tracking-wide text-main-900 sm:text-5xl">Latest News</h2>
           <div class="mx-auto mt-7 h-1 w-15 rounded-full bg-main-300"></div>
         </div>
 
-        <div class="mt-16 flex flex-col gap-12 md:flex-row" data-news-grid>
-          <news-card img="/assets/images/blog/4.jpg" img-alt="" date="March 20, 2020" title="Miyuji Regulization scheme"
-            href="/regulazation/"></news-card>
+        <div class="mt-16 overflow-hidden">
+          <div class="flex gap-8" data-news-track>
+            <news-card img="/assets/images/blog/4.jpg" img-alt="" date="March 20, 2020" title="Miyuji Regulization scheme"
+              href="/regulazation/"></news-card>
 
-          <news-card img="/assets/images/blog/5.jpg" img-alt="" date="Jun 30, 2019"
-            title="Topographical survey at Service road along Nyerere Road" href="/topo2019/"></news-card>
+            <news-card img="/assets/images/blog/5.jpg" img-alt="" date="Jun 30, 2019"
+              title="Topographical survey at Service road along Nyerere Road" href="/topo2019/"></news-card>
 
-          <news-card img="/assets/images/blog/3.jpg" img-alt="" date="March 20, 2020" title="Ihumwa Regulization scheme"
-            href="/regulazation/"></news-card>
+            <news-card img="/assets/images/blog/3.jpg" img-alt="" date="March 20, 2020" title="Ihumwa Regulization scheme"
+              href="/regulazation/"></news-card>
+          </div>
         </div>
       </div>
     </section>
@@ -400,34 +441,42 @@
   <script type="module" src="./src/ui/slider.js"></script>
   <script type="module" src="./src/ui/news-card.js"></script>
   <script type="module">
-    const newsGrid = document.querySelector("[data-news-grid]");
-    if (newsGrid) {
+    const slideTrackFromRight = (track, interval = 2500, duration = 600) => {
+      let isSliding = false;
+
       window.setInterval(() => {
-        const cards = Array.from(newsGrid.children);
-        if (cards.length < 2) return;
+        if (isSliding || !track.firstElementChild) return;
 
-        const firstRects = new Map(cards.map((card) => [card, card.getBoundingClientRect()]));
-        newsGrid.appendChild(cards[0]);
+        isSliding = true;
+        const first = track.firstElementChild;
+        const styles = window.getComputedStyle(track);
+        const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+        const distance = first.getBoundingClientRect().width + gap;
+        const clone = first.cloneNode(true);
 
-        for (const card of cards) {
-          const first = firstRects.get(card);
-          const last = card.getBoundingClientRect();
-          const deltaX = first.left - last.left;
-          const deltaY = first.top - last.top;
+        clone.setAttribute("aria-hidden", "true");
+        track.appendChild(clone);
 
-          card.animate(
-            [
-              { transform: `translate(${deltaX}px, ${deltaY}px)` },
-              { transform: "translate(0, 0)" },
-            ],
-            {
-              duration: 700,
-              easing: "cubic-bezier(0.22, 1, 0.36, 1)",
-            }
-          );
-        }
-      }, 6000);
-    }
+        track.style.transition = `transform ${duration}ms ease`;
+        track.style.transform = `translateX(-${distance}px)`;
+
+        window.setTimeout(() => {
+          track.style.transition = "none";
+          track.appendChild(first);
+          clone.remove();
+          track.style.transform = "translateX(0)";
+          isSliding = false;
+        }, duration);
+      }, interval);
+    };
+
+    document.querySelectorAll("[data-logo-track]").forEach((track) => {
+      slideTrackFromRight(track, 2500, 600);
+    });
+
+    document.querySelectorAll("[data-news-track]").forEach((track) => {
+      slideTrackFromRight(track, 6000, 700);
+    });
   </script>
   <script type="module" src="./src/layout/topnav.js"></script>
   <script type="module" src="./src/layout/footer.js"></script>
