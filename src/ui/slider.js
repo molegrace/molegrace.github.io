@@ -349,10 +349,24 @@ class SiteSlider extends HTMLElement {
     this._index = nextIndex;
 
     const isStack = this._mode === "stack";
+    const useStackSlide =
+      isStack &&
+      animate &&
+      !this._prefersReducedMotion &&
+      this._resolvedTransition === "slide" &&
+      prevIndex !== nextIndex;
+
+    if (useStackSlide) {
+      this.#animateStackSlide(this._slides[prevIndex], this._slides[nextIndex], this._direction || 1);
+    }
+
     this._slides.forEach((slide, i) => {
       const isActive = i === nextIndex;
 
-      if (isStack) {
+      if (useStackSlide) {
+        slide.toggleAttribute("hidden", i !== prevIndex && !isActive);
+        slide.style.pointerEvents = isActive ? "auto" : "none";
+      } else if (isStack) {
         slide.toggleAttribute("hidden", !isActive);
         if (isActive && animate && !this._prefersReducedMotion) {
           const isSlideTransition = this._resolvedTransition === "slide";
@@ -503,6 +517,72 @@ class SiteSlider extends HTMLElement {
     }
 
     if (animate && !this._prefersReducedMotion) this.#restartAnimations(this._slides[nextIndex]);
+  }
+
+  #animateStackSlide(prevSlide, nextSlide, direction = 1) {
+    if (!prevSlide || !nextSlide || !this._slidesRoot) return;
+
+    this._stackAnimations?.forEach((animation) => animation.cancel());
+
+    prevSlide.toggleAttribute("hidden", false);
+    nextSlide.toggleAttribute("hidden", false);
+
+    const prevHeight = prevSlide.getBoundingClientRect().height;
+    const nextHeight = nextSlide.getBoundingClientRect().height;
+    this._slidesRoot.style.minHeight = `${Math.max(prevHeight, nextHeight)}px`;
+
+    const positioned = [prevSlide, nextSlide];
+    positioned.forEach((slide) => {
+      slide.style.position = "absolute";
+      slide.style.inset = "0";
+      slide.style.width = "100%";
+    });
+
+    prevSlide.style.zIndex = "1";
+    nextSlide.style.zIndex = "2";
+
+    const prevAnimation = prevSlide.animate(
+      [
+        { opacity: 1, transform: "translateX(0)" },
+        { opacity: 0, transform: `translateX(${direction > 0 ? "-100%" : "100%"})` },
+      ],
+      {
+        duration: 220,
+        easing: "cubic-bezier(0.4, 0, 1, 1)",
+        fill: "forwards",
+      }
+    );
+
+    const nextAnimation = nextSlide.animate(
+      [
+        { opacity: 0, transform: `translateX(${direction > 0 ? "100%" : "-100%"})` },
+        { opacity: 1, transform: "translateX(0)" },
+      ],
+      {
+        duration: 260,
+        easing: "cubic-bezier(0.22, 1, 0.36, 1)",
+        fill: "forwards",
+      }
+    );
+
+    this._stackAnimations = [prevAnimation, nextAnimation];
+
+    Promise.all(this._stackAnimations.map((animation) => animation.finished.catch(() => null))).then(() => {
+      if (this._stackAnimations?.[0] !== prevAnimation) return;
+
+      prevSlide.toggleAttribute("hidden", true);
+      nextSlide.toggleAttribute("hidden", false);
+
+      positioned.forEach((slide) => {
+        slide.style.position = "";
+        slide.style.inset = "";
+        slide.style.width = "";
+        slide.style.zIndex = "";
+      });
+
+      this._slidesRoot.style.minHeight = "";
+      this._stackAnimations = null;
+    });
   }
 
   #syncAriaLabels() {
