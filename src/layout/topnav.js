@@ -19,7 +19,7 @@ const MENU = [
       { label: "FAQ", href: "/faq/" }
     ]
   },
-  { label: "Self Service", href: "https://www.databenki.com/gps/" }
+  { label: "Self Service", href: "https://ardhi.co.tz/" }
 ];
 
 function createLink(item) {
@@ -108,7 +108,7 @@ template.innerHTML = `
 
   <!-- NAV -->
   <div id="topnav" class="bg-white transition-all duration-300">
-    <div class="mx-auto max-w-7xl px-2 py-10 ">
+    <div class="mx-auto max-w-7xl px-2 py-8 ">
 
       <div class="flex items-center justify-between">
 
