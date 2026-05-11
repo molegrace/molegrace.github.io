@@ -426,7 +426,6 @@
     100% { transform: translateX(0); }
   }
   
-  .animate-step {
+.animate-step {
     animation: stepSlide 15s steps(5) infinite;
   }
- 
