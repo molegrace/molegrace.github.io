@@ -54,7 +54,7 @@ class FaqItem extends HTMLElement {
         </button>
 
         <div class="max-h-0 overflow-hidden transition-[max-height] duration-300 ease-out" data-faq-panel>
-          <div class="borde-0 border-main-200 px-6 pb-8 pt-6 text-base leading-relaxed text-main-700 sm:px-10 lg:px-11.5">
+          <div class="overflow-x-auto border-t border-main-200 px-6 pb-8 pt-6 text-base leading-relaxed text-main-700 sm:px-10 lg:px-11.5 [&_a]:text-primary-700 [&_a]:underline [&_h5]:mb-3 [&_h5]:mt-4 [&_h5]:text-lg [&_h5]:font-semibold [&_h5]:text-primary-900 [&_h6]:mt-3 [&_h6]:font-semibold [&_h6]:text-primary-900 [&_li]:mt-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:mt-2 [&_table]:my-4 [&_table]:min-w-[640px] [&_table]:border-collapse [&_table]:text-left [&_td]:border [&_td]:border-main-300 [&_td]:px-4 [&_td]:py-3 [&_th]:border [&_th]:border-main-300 [&_th]:bg-main-50 [&_th]:px-4 [&_th]:py-3 [&_th]:font-semibold [&_th]:text-primary-900 [&_ul]:pl-0">
             ${this._answerHtml}
           </div>
         </div>
