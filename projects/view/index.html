@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#061948" />
+    <meta name="msapplication-navbutton-color" content="#061948" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="#061948" />
+
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="DataBENKI - Project Details" />
+    <meta name="og:description" content="View DataBENKI project details, clients, dates, locations, and project media." />
+    <meta property="og:url" content="https://databenki.com/projects/view/" />
+    <meta property="og:site_name" content="DataBENKI" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+    <title>Project Details - DataBENKI</title>
+    <link rel="icon" type="image/png" sizes="56x56" href="/assets/images/fav-icon/icon.png" />
+    <link href="/assets/css/output.css" rel="stylesheet" />
+    <link href="/assets/css/animate.min.css" rel="stylesheet" />
+  </head>
+
+  <body class="bg-main-0 text-primary-900">
+    <top-nav></top-nav>
+
+    <main>
+      <section class="relative flex h-62.5 items-center justify-center overflow-hidden bg-[url('/assets/images/home/inner-banner.jpg')] bg-cover bg-center bg-fixed">
+        <div class="absolute inset-0 bg-primary-950/45"></div>
+        <div class="relative z-10 px-4 text-center">
+          <p class="text-sm font-semibold uppercase tracking-widest text-main-0/80">Project</p>
+          <h1 id="project-hero-title" class="mt-3 text-4xl font-extrabold uppercase tracking-wide text-main-0 sm:text-5xl">
+            Project Details
+          </h1>
+        </div>
+      </section>
+
+      <section class="bg-main-0 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div class="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[minmax(0,1fr)_420px]">
+          <div>
+            <div id="project-images" class="grid gap-6"></div>
+          </div>
+
+          <aside class="lg:order-last">
+            <div class="border border-main-200 bg-white p-7 shadow-sm sm:p-8">
+              <p id="project-category-kicker" class="text-sm font-semibold uppercase tracking-widest text-primary-700"></p>
+              <h2 id="project-title" class="mt-3 text-2xl font-extrabold leading-tight text-main-900 sm:text-3xl"></h2>
+              <div id="project-description" class="mt-5 space-y-4 text-base leading-relaxed text-main-700"></div>
+
+              <dl id="project-meta" class="mt-8 divide-y divide-main-200 border-y border-main-200"></dl>
+
+              <div id="project-extra" class="mt-8 space-y-3 text-base leading-relaxed text-main-700"></div>
+
+              <a href="/projects/" class="mt-8 inline-flex items-center gap-2 text-sm font-bold uppercase text-primary-700 transition hover:text-primary-900">
+                <i class="bi bi-arrow-left"></i>
+                Back to projects
+              </a>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <site-footer></site-footer>
+
+    <script type="module" src="/src/layout/topnav.js"></script>
+    <script type="module" src="/src/layout/footer.js"></script>
+    <script>
+      const PROJECTS = {
+        "rukwa-site-verification-2021": {
+          heroTitle: "Our Project",
+          pageTitle: "Rukwa and Kagera Powerline Survey | DataBENKI",
+          title: "Rukwa and Kagera Data Processing",
+          category: "Data Processing",
+          description: [
+            "We're processing data obtained from site and designing route for powerlines."
+          ],
+          meta: [
+            ["Client", "JV POMMY&QUIHAYA"],
+            ["Date", "13/November/2021"],
+            ["Location", "Rukwa&Kagera"],
+            ["Category", "Data Processing"]
+          ],
+          images: [
+            {
+              src: "/assets/images/portfolio/18.jpg",
+              alt: "Rukwa and Kagera powerline survey data processing"
+            }
+          ]
+        },
+        "control-survey": {
+          heroTitle: "Our Project",
+          pageTitle: "Data processing on Control Survey | DataBENKI",
+          title: "Addition of control points to National Control networks, TAREF 11.",
+          category: "Data Processing",
+          description: [
+            "Processing of broadcasted ephemeris, pseudo-range and codes observed by GPS receivers.",
+            "Data processed to obtain Northing and Easting to be used in cadastral work and other engineering."
+          ],
+          meta: [
+            ["Client", "Sr.Surv.J.Nyabukika"],
+            ["Date", "11/October/2021"],
+            ["Category", "Data Processing"]
+          ],
+          extra: [
+            {
+              title: "Processed Data",
+              body: "Covered two districts including Bariadi District and Itilima District."
+            }
+          ],
+          images: [
+            {
+              src: "/assets/images/portfolio/20.jpg",
+              alt: "Control survey processed data"
+            },
+            {
+              src: "/assets/images/portfolio/21.jpg",
+              alt: "Control survey baseline processing"
+            }
+          ]
+        },
+        "uwazi-plots-mapping": {
+          heroTitle: "Our Project",
+          pageTitle: "Uwazi Plots Mapping | DataBENKI",
+          title: "Uwazi Plots Mapping",
+          category: "Land Surveying",
+          description: [
+            "Plot mapping project prepared for submission to SMD."
+          ],
+          meta: [
+            ["Location", "Temeke, Dar es Salaam"],
+            ["Date", "Feb 2020"],
+            ["Category", "Land Surveying"]
+          ],
+          images: [
+            {
+              src: "/assets/images/portfolio/3.jpg",
+              alt: "Uwazi plots mapping project"
+            }
+          ]
+        },
+        "road-utilities-mapping": {
+          heroTitle: "Our Project",
+          pageTitle: "Road Utilities Mapping | DataBENKI",
+          title: "Road Utilities Mapping",
+          category: "Topographical Surveying",
+          description: [
+            "Utilities mapping project covering more than 2000m."
+          ],
+          meta: [
+            ["Location", "Tunduru, Ruvuma"],
+            ["Date", "May 2021"],
+            ["Category", "Topographical Surveying"]
+          ],
+          images: [
+            {
+              src: "/assets/images/portfolio/4.jpg",
+              alt: "Road utilities mapping project"
+            }
+          ]
+        },
+        "bridge-reconnaissance": {
+          heroTitle: "Our Project",
+          pageTitle: "Bridge Reconnaissance | DataBENKI",
+          title: "Bridge Reconnaissance",
+          category: "Reconnaissance Survey",
+          description: [
+            "Reconnaissance survey for the Tuwemacho-Mtina bridge."
+          ],
+          meta: [
+            ["Location", "Tunduru, Ruvuma"],
+            ["Date", "May 2021"],
+            ["Category", "Reconnaissance Survey"]
+          ],
+          images: [
+            {
+              src: "/assets/images/portfolio/5.jpg",
+              alt: "Bridge reconnaissance project"
+            }
+          ]
+        },
+        "miyuji-file-completion": {
+          heroTitle: "Our Project",
+          pageTitle: "Miyuji File Completion | DataBENKI",
+          title: "Miyuji File Completion",
+          category: "Cadastre Data",
+          description: [
+            "Organizing data for cadastre file completion."
+          ],
+          meta: [
+            ["Location", "Miyuji, Dodoma"],
+            ["Date", "Dec 2019"],
+            ["Category", "Cadastre Data"]
+          ],
+          images: [
+            {
+              src: "/assets/images/portfolio/6.jpg",
+              alt: "Miyuji file completion project"
+            }
+          ]
+        },
+        "fumigation-data-management": {
+          heroTitle: "Our Project",
+          pageTitle: "Fumigation Data Management | DataBENKI",
+          title: "Fumigation Data Management",
+          category: "Data Management",
+          description: [
+            "Data organization and analysis project for fumigation workflows."
+          ],
+          meta: [
+            ["Category", "Data Management"]
+          ],
+          images: [
+            {
+              src: "/assets/images/portfolio/13.jpg",
+              alt: "Fumigation data management project"
+            }
+          ]
+        },
+        "emathasia-data-collection": {
+          heroTitle: "Our Project",
+          pageTitle: "Emathasia Data Collection | DataBENKI",
+          title: "Emathasia Data Collection",
+          category: "Data Collection",
+          description: [
+            "Parcel data collection project for Emathasia."
+          ],
+          meta: [
+            ["Location", "Emathasia, Arusha"],
+            ["Date", "Feb 2020"],
+            ["Category", "Data Collection"]
+          ],
+          images: [
+            {
+              src: "/assets/images/portfolio/14.jpg",
+              alt: "Emathasia data collection project"
+            }
+          ]
+        },
+        "online-data-processing-platform": {
+          heroTitle: "Our Project",
+          pageTitle: "Online Data Processing Platform | DataBENKI",
+          title: "Online Data Processing Platform",
+          category: "Platform",
+          description: [
+            "Online platform with thousands of professionals to fill your purpose.",
+            "Coming Soon."
+          ],
+          meta: [
+            ["Status", "Coming Soon"],
+            ["Category", "Platform"]
+          ],
+          images: [
+            {
+              src: "/assets/images/portfolio/15.jpg",
+              alt: "Online data processing platform"
+            }
+          ]
+        }
+      };
+
+      const escapeHtml = (value) =>
+        String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+
+      const params = new URLSearchParams(window.location.search);
+      const projectKey = params.get("project") || "rukwa-site-verification-2021";
+      const project = PROJECTS[projectKey] || PROJECTS["rukwa-site-verification-2021"];
+
+      document.title = project.pageTitle;
+      document.querySelector('meta[property="og:title"]').setAttribute("content", project.pageTitle);
+      document.getElementById("project-hero-title").textContent = project.heroTitle;
+      document.getElementById("project-category-kicker").textContent = project.category;
+      document.getElementById("project-title").textContent = project.title;
+
+      document.getElementById("project-description").innerHTML = project.description
+        .map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`)
+        .join("");
+
+      document.getElementById("project-meta").innerHTML = project.meta
+        .map(([label, value]) => `
+          <div class="grid gap-1 py-4 sm:grid-cols-[120px_1fr]">
+            <dt class="text-sm font-bold uppercase tracking-wide text-main-500">${escapeHtml(label)} :</dt>
+            <dd class="font-semibold text-main-900">${escapeHtml(value)}</dd>
+          </div>
+        `)
+        .join("");
+
+      document.getElementById("project-images").innerHTML = project.images
+        .map((image) => `
+          <figure class="overflow-hidden bg-main-100">
+            <img src="${escapeHtml(image.src)}" alt="${escapeHtml(image.alt)}" class="h-auto w-full object-cover" loading="lazy" decoding="async" />
+          </figure>
+        `)
+        .join("");
+
+      document.getElementById("project-extra").innerHTML = (project.extra || [])
+        .map((item) => `
+          <section>
+            <h3 class="text-xl font-extrabold text-main-900">${escapeHtml(item.title)}</h3>
+            <p class="mt-2">${escapeHtml(item.body)}</p>
+          </section>
+        `)
+        .join("");
+    </script>
+  </body>
+</html>
