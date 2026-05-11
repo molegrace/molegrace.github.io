@@ -820,8 +820,14 @@
   .h-62\.5 {
     height: calc(var(--spacing) * 62.5);
   }
+  .h-80 {
+    height: calc(var(--spacing) * 80);
+  }
   .h-96 {
     height: calc(var(--spacing) * 96);
+  }
+  .h-100 {
+    height: calc(var(--spacing) * 100);
   }
   .h-\[320px\] {
     height: 320px;
@@ -2689,6 +2695,11 @@
   .\[\&_table\]\:my-4 {
     & table {
       margin-block: calc(var(--spacing) * 4);
+    }
+  }
+  .\[\&_table\]\:min-w-160 {
+    & table {
+      min-width: calc(var(--spacing) * 160);
     }
   }
   .\[\&_table\]\:min-w-\[640px\] {

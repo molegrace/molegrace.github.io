@@ -31,7 +31,7 @@ class ProjectCard extends HTMLElement {
     this.innerHTML = `
       <a href="${link}" class="group block focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 focus-visible:ring-offset-4">
         <article
-          class="relative h-[320px] overflow-hidden bg-main-100"
+          class="relative h-80 overflow-hidden bg-main-100"
         >
           <img
             src="${image}"

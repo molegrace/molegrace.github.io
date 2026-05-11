@@ -16,7 +16,7 @@ const MENU = [
     label: "Resource",
     children: [
       { label: "Portfolio", href: "/projects/" },
-      { label: "FAQ", href: "/faq/" }
+      { label: "FAQ", href: "/faqs/" }
     ]
   },
   { label: "Self Service", href: "https://ardhi.co.tz/" }
