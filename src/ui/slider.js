@@ -197,7 +197,7 @@ class SiteSlider extends HTMLElement {
   }
 
   #pickTransition() {
-    const options = ["slice", "fade", "slide", "zoom", "wipe", "curtain", "rotate", "blur"];
+    const options = ["fade", "slide", "slide-up", "push", "zoom", "cross-zoom", "wipe", "reveal", "slice"];
     if (options.length === 1) return options[0];
 
     let next = options[Math.floor(Math.random() * options.length)];
@@ -481,7 +481,7 @@ class SiteSlider extends HTMLElement {
         }
       } else if (transition === "slide") {
         this._gsapTimeline = gsap.timeline({
-          defaults: { ease: "power2.out" },
+          defaults: { ease: "power3.inOut" },
           onComplete: () => {
             gsap.set([prevSlide, nextSlide], { clearProps: "transform" });
             nextSlide.style.zIndex = "1";
@@ -490,11 +490,43 @@ class SiteSlider extends HTMLElement {
           },
         });
 
-        gsap.set(nextSlide, { opacity: 0, x: 180 });
+        gsap.set(nextSlide, { opacity: 1, xPercent: 100 });
         gsap.set(prevSlide, { opacity: 1, x: 0 });
 
-        this._gsapTimeline.to(prevSlide, { opacity: 0, x: -180, duration: 1 }, 0);
-        this._gsapTimeline.to(nextSlide, { opacity: 1, x: 0, duration: 1.15 }, 0.05);
+        this._gsapTimeline.to(prevSlide, { opacity: 0.25, xPercent: -18, duration: 1.05 }, 0);
+        this._gsapTimeline.to(nextSlide, { xPercent: 0, duration: 1.05 }, 0);
+      } else if (transition === "slide-up") {
+        this._gsapTimeline = gsap.timeline({
+          defaults: { ease: "power3.inOut" },
+          onComplete: () => {
+            gsap.set([prevSlide, nextSlide], { clearProps: "transform" });
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+
+        gsap.set(nextSlide, { opacity: 1, yPercent: 100 });
+        gsap.set(prevSlide, { opacity: 1, yPercent: 0 });
+
+        this._gsapTimeline.to(prevSlide, { opacity: 0.25, yPercent: -16, duration: 1.05 }, 0);
+        this._gsapTimeline.to(nextSlide, { yPercent: 0, duration: 1.05 }, 0);
+      } else if (transition === "push") {
+        this._gsapTimeline = gsap.timeline({
+          defaults: { ease: "power3.inOut" },
+          onComplete: () => {
+            gsap.set([prevSlide, nextSlide], { clearProps: "transform" });
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+
+        gsap.set(nextSlide, { opacity: 1, xPercent: 100 });
+        gsap.set(prevSlide, { opacity: 1, xPercent: 0 });
+
+        this._gsapTimeline.to(prevSlide, { xPercent: -100, duration: 1.05 }, 0);
+        this._gsapTimeline.to(nextSlide, { xPercent: 0, duration: 1.05 }, 0);
       } else if (transition === "zoom") {
         this._gsapTimeline = gsap.timeline({
           defaults: { ease: "power3.out" },
@@ -506,11 +538,27 @@ class SiteSlider extends HTMLElement {
           },
         });
 
-        gsap.set(nextSlide, { opacity: 0, scale: 1.25 });
+        gsap.set(nextSlide, { opacity: 0, scale: 1.14 });
         gsap.set(prevSlide, { opacity: 1, scale: 1 });
 
-        this._gsapTimeline.to(prevSlide, { opacity: 0, scale: 0.88, duration: 1 }, 0);
-        this._gsapTimeline.to(nextSlide, { opacity: 1, scale: 1, duration: 1.2 }, 0.05);
+        this._gsapTimeline.to(prevSlide, { opacity: 0, scale: 0.96, duration: 0.95 }, 0);
+        this._gsapTimeline.to(nextSlide, { opacity: 1, scale: 1, duration: 1.15 }, 0.05);
+      } else if (transition === "cross-zoom") {
+        this._gsapTimeline = gsap.timeline({
+          defaults: { ease: "power2.inOut" },
+          onComplete: () => {
+            gsap.set([prevSlide, nextSlide], { clearProps: "transform" });
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+
+        gsap.set(nextSlide, { opacity: 0, scale: 1.08 });
+        gsap.set(prevSlide, { opacity: 1, scale: 1 });
+
+        this._gsapTimeline.to(prevSlide, { opacity: 0, scale: 1.08, duration: 1.05 }, 0);
+        this._gsapTimeline.to(nextSlide, { opacity: 1, scale: 1, duration: 1.05 }, 0);
       } else if (transition === "wipe") {
         this._gsapTimeline = gsap.timeline({
           defaults: { ease: "power3.inOut" },
@@ -525,56 +573,24 @@ class SiteSlider extends HTMLElement {
         gsap.set(nextSlide, { opacity: 1, clipPath: "inset(0 100% 0 0)" });
         gsap.set(prevSlide, { opacity: 1 });
 
-        this._gsapTimeline.to(nextSlide, { clipPath: "inset(0 0% 0 0)", duration: 1.25 }, 0);
-        this._gsapTimeline.to(prevSlide, { opacity: 0.25, duration: 1.25 }, 0);
-      } else if (transition === "curtain") {
+        this._gsapTimeline.to(nextSlide, { clipPath: "inset(0 0% 0 0)", duration: 1.05 }, 0);
+        this._gsapTimeline.to(prevSlide, { opacity: 0.35, duration: 1.05 }, 0);
+      } else if (transition === "reveal") {
         this._gsapTimeline = gsap.timeline({
           defaults: { ease: "power3.inOut" },
           onComplete: () => {
-            gsap.set([prevSlide, nextSlide], { clearProps: "clipPath" });
+            gsap.set([prevSlide, nextSlide], { clearProps: "clipPath,transform" });
             nextSlide.style.zIndex = "1";
             prevSlide.style.zIndex = "0";
             this._gsapTimeline = null;
           },
         });
 
-        gsap.set(nextSlide, { opacity: 1, clipPath: "inset(0 50% 0 50%)" });
-        gsap.set(prevSlide, { opacity: 1 });
+        gsap.set(nextSlide, { opacity: 1, clipPath: "inset(0 0 0 100%)", xPercent: 4 });
+        gsap.set(prevSlide, { opacity: 1, xPercent: 0 });
 
-        this._gsapTimeline.to(nextSlide, { clipPath: "inset(0 0% 0 0%)", duration: 1.3 }, 0);
-        this._gsapTimeline.to(prevSlide, { opacity: 0.15, duration: 1.3 }, 0);
-      } else if (transition === "rotate") {
-        this._gsapTimeline = gsap.timeline({
-          defaults: { ease: "power3.out" },
-          onComplete: () => {
-            gsap.set([prevSlide, nextSlide], { clearProps: "transform,transformOrigin" });
-            nextSlide.style.zIndex = "1";
-            prevSlide.style.zIndex = "0";
-            this._gsapTimeline = null;
-          },
-        });
-
-        gsap.set(nextSlide, { opacity: 0, scale: 1.18, rotation: 5, transformOrigin: "center center" });
-        gsap.set(prevSlide, { opacity: 1, scale: 1, rotation: 0, transformOrigin: "center center" });
-
-        this._gsapTimeline.to(prevSlide, { opacity: 0, scale: 0.9, rotation: -4, duration: 1 }, 0);
-        this._gsapTimeline.to(nextSlide, { opacity: 1, scale: 1, rotation: 0, duration: 1.2 }, 0.04);
-      } else if (transition === "blur") {
-        this._gsapTimeline = gsap.timeline({
-          defaults: { ease: "power2.out" },
-          onComplete: () => {
-            gsap.set([prevSlide, nextSlide], { clearProps: "filter,transform" });
-            nextSlide.style.zIndex = "1";
-            prevSlide.style.zIndex = "0";
-            this._gsapTimeline = null;
-          },
-        });
-
-        gsap.set(nextSlide, { opacity: 0, filter: "blur(22px)", scale: 1.08 });
-        gsap.set(prevSlide, { opacity: 1, filter: "blur(0px)", scale: 1 });
-
-        this._gsapTimeline.to(prevSlide, { opacity: 0, filter: "blur(16px)", duration: 1 }, 0);
-        this._gsapTimeline.to(nextSlide, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 1.2 }, 0.05);
+        this._gsapTimeline.to(prevSlide, { xPercent: -4, opacity: 0.45, duration: 1.05 }, 0);
+        this._gsapTimeline.to(nextSlide, { clipPath: "inset(0 0 0 0%)", xPercent: 0, duration: 1.05 }, 0);
       } else {
         // Crossfade slides + subtle "ken burns" on the background image.
         gsap.set(nextSlide, { opacity: 0 });
@@ -679,8 +695,15 @@ class SiteSlider extends HTMLElement {
       gsap.killTweensOf(items);
       gsap.fromTo(
         items,
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power2.out", stagger: 0.1, delay: 0.1 }
+        { opacity: 0, x: -86 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.85,
+          ease: "power3.out",
+          stagger: 0.18,
+          delay: 0.12,
+        }
       );
       return;
     }

@@ -59,20 +59,20 @@ class HeroSlide extends HTMLElement {
         <div class="container mx-auto flex h-full max-w-7xl items-center justify-center px-4">
           <div class="mx-auto w-full max-w-3xl text-center">
             <h1
-              class="text-3xl font-extrabold leading-tight tracking-tight text-primary-700 sm:text-6xl"
+              class="overflow-hidden text-3xl font-extrabold leading-tight tracking-tight text-primary-700 sm:text-6xl"
               data-animate
               style="--animate-duration: 0.8s; animation-delay: 0s;"
             >
               ${safeTitle}
             </h1>
             <h2
-              class="mt-2 text-2xl font-bold leading-tight tracking-tight text-main-800 sm:mt-3 sm:text-5xl"
+              class="mt-2 overflow-hidden text-2xl font-bold leading-tight tracking-tight text-main-800 sm:mt-3 sm:text-5xl"
               data-animate
               style="--animate-duration: 0.8s; animation-delay: 0.2s;"
             >
               ${safeSubtitle}
             </h2>
-            <div class="mt-6 flex justify-center sm:mt-8" data-animate style="--animate-duration: 0.8s; animation-delay: 0.39s;">
+            <div class="mt-6 flex justify-center overflow-hidden sm:mt-8" data-animate style="--animate-duration: 0.8s; animation-delay: 0.39s;">
               <a
                 href="${safeHref}"
                 class="inline-flex items-center justify-center rounded-md bg-main-0 px-4 py-3 text-xs font-semibold text-primary-900 shadow-sm transition hover:bg-primary-700 hover:text-main-50 uppercase focus:outline-none focus:ring-2 focus:ring-main-0/40 sm:px-5 sm:py-4 sm:text-sm"
