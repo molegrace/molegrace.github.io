@@ -26,42 +26,10 @@
 
   <title>Home</title>
   <link rel="icon" type="image/png" sizes="56x56" href="/assets/images/fav-icon/icon.png" />
+  <link href="assets/css/index.css" rel="stylesheet" />
   <link href="assets/css/output.css" rel="stylesheet" />
   <link href="assets/css/animate.min.css" rel="stylesheet" />
   
-  <style>
-    [data-logo-track],
-    [data-news-track] {
-      will-change: transform;
-    }
-
-    [data-logo-track] > div {
-      flex: 0 0 20%;
-    }
-
-    [data-news-track] > news-card {
-      flex: 0 0 100%;
-    }
-
-    @media (min-width: 768px) {
-      [data-news-track] > news-card {
-        flex-basis: calc((100% - 4rem) / 3);
-      }
-    }
-
-    @media (max-width: 640px) {
-      [data-logo-track] > div {
-        flex-basis: 50%;
-      }
-
-      [data-partners-section] > div {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-      }
-    }
-  </style>
-
-
   <script src="https://www.google.com/recaptcha/enterprise.js?render=6LewxLoqAAAAAC3-h4_715gzYqWIpRDoVQcU9o1J"></script>
   <script>
     function onClick(e) {

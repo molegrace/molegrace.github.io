@@ -693,18 +693,14 @@ class SiteSlider extends HTMLElement {
     if (this._variant === "hero" && this.#hasGsap() && !this._prefersReducedMotion) {
       const gsap = window.gsap;
       gsap.killTweensOf(items);
-      gsap.fromTo(
-        items,
-        { opacity: 0, x: -86 },
-        {
-          opacity: 1,
-          x: 0,
-          duration: 0.85,
-          ease: "power3.out",
-          stagger: 0.18,
-          delay: 0.12,
-        }
-      );
+      items.forEach((el, index) => {
+        el.classList.remove("hero-caption-animate");
+        el.style.removeProperty("opacity");
+        el.style.removeProperty("transform");
+        el.style.setProperty("--hero-caption-delay", `${0.12 + index * 0.18}s`);
+        void el.offsetWidth;
+        el.classList.add("hero-caption-animate");
+      });
       return;
     }
 
