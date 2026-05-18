@@ -186,23 +186,38 @@ class="relative h-62.5 flex items-center justify-center overflow-hidden bg-[url(
 </section>
 
 <!-- Partner Section -->
-<section class="bg-primary-50">
+<section class="bg-primary-50" data-partners-section>
   <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-    <div class="grid gap-8 lg:grid-cols-12 items-center">
+    <div class="grid gap-8 text-center lg:grid-cols-12 lg:items-center lg:text-left">
 
       <div class="lg:col-span-3">
-        <h2 class="text-xl font-bold text-main-800">
-          SHOW <br> CASE
+        <h2 class="text-xl font-bold tracking-tight text-main-800">
+          SHOW <span class="lg:hidden">CASE</span><br class="hidden lg:block">
+          <span class="hidden lg:inline">CASE</span>
         </h2>
       </div>
 
-      <div class="lg:col-span-9 flex flex-wrap items-center gap-8">
-        <img src="/assets/images/logo/p-8D.png" class="h-14">
-        <img src="/assets/images/logo/p-1D.png" class="h-14">
-        <img src="/assets/images/logo/p-2D.png" class="h-14">
-        <img src="/assets/images/logo/p-3D.png" class="h-14">
-        <img src="/assets/images/logo/p-4D.png" class="h-14">
-        <img src="/assets/images/logo/p-5D.png" class="h-14">
+      <div class="overflow-hidden lg:col-span-9">
+        <div class="flex items-center" data-logo-track>
+          <div class="flex justify-center">
+            <img src="/assets/images/logo/p-8D.png" alt="" class="h-16 w-auto opacity-80" loading="lazy">
+          </div>
+          <div class="flex justify-center">
+            <img src="/assets/images/logo/p-1D.png" alt="" class="h-16 w-auto opacity-80" loading="lazy">
+          </div>
+          <div class="flex justify-center">
+            <img src="/assets/images/logo/p-2D.png" alt="" class="h-16 w-auto opacity-80" loading="lazy">
+          </div>
+          <div class="flex justify-center">
+            <img src="/assets/images/logo/p-3D.png" alt="" class="h-16 w-auto opacity-80" loading="lazy">
+          </div>
+          <div class="flex justify-center">
+            <img src="/assets/images/logo/p-4D.png" alt="" class="h-16 w-auto opacity-80" loading="lazy">
+          </div>
+          <div class="flex justify-center">
+            <img src="/assets/images/logo/p-5D.png" alt="" class="h-16 w-auto opacity-80" loading="lazy">
+          </div>
+        </div>
       </div>
 
     </div>
@@ -237,6 +252,40 @@ class="relative h-62.5 flex items-center justify-center overflow-hidden bg-[url(
 <script type="module" src="../src/layout/topnav.js"></script>
 <script type="module" src="../src/layout/footer.js"></script>
 <script type="module" src="../src/ui/news-card.js"></script>
+<script type="module">
+  const slideTrackFromRight = (track, interval = 2500, duration = 600) => {
+    let isSliding = false;
+
+    window.setInterval(() => {
+      if (isSliding || !track.firstElementChild) return;
+
+      isSliding = true;
+      const first = track.firstElementChild;
+      const styles = window.getComputedStyle(track);
+      const gap = parseFloat(styles.columnGap || styles.gap) || 0;
+      const distance = first.getBoundingClientRect().width + gap;
+      const clone = first.cloneNode(true);
+
+      clone.setAttribute("aria-hidden", "true");
+      track.appendChild(clone);
+
+      track.style.transition = `transform ${duration}ms ease`;
+      track.style.transform = `translateX(-${distance}px)`;
+
+      window.setTimeout(() => {
+        track.style.transition = "none";
+        track.appendChild(first);
+        clone.remove();
+        track.style.transform = "translateX(0)";
+        isSliding = false;
+      }, duration);
+    }, interval);
+  };
+
+  document.querySelectorAll("[data-logo-track]").forEach((track) => {
+    slideTrackFromRight(track, 2500, 600);
+  });
+</script>
 
 </body>
 </html>
