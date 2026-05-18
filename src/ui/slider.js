@@ -197,7 +197,7 @@ class SiteSlider extends HTMLElement {
   }
 
   #pickTransition() {
-    const options = ["slice", "fade", "slide"];
+    const options = ["slice", "fade", "slide", "zoom", "wipe", "curtain", "rotate", "blur"];
     if (options.length === 1) return options[0];
 
     let next = options[Math.floor(Math.random() * options.length)];
@@ -447,8 +447,8 @@ class SiteSlider extends HTMLElement {
               this._gsapTimeline = null;
             },
           });
-          this._gsapTimeline.to(prevSlide, { opacity: 0, duration: 0.7, ease: "power2.out" }, 0);
-          this._gsapTimeline.to(nextSlide, { opacity: 1, duration: 0.85, ease: "power2.out" }, 0.05);
+          this._gsapTimeline.to(prevSlide, { opacity: 0, duration: 1, ease: "power2.out" }, 0);
+          this._gsapTimeline.to(nextSlide, { opacity: 1, duration: 1.15, ease: "power2.out" }, 0.05);
         } else {
           this._sliceOverlay = overlay;
           this._slidesRoot.appendChild(overlay);
@@ -471,12 +471,12 @@ class SiteSlider extends HTMLElement {
           });
 
           this._gsapTimeline.to(slices, {
-            duration: 0.9,
+            duration: 1.25,
             opacity: 0,
-            x: (i) => (i % 2 ? 90 : -90),
-            rotationY: (i) => (i % 2 ? -70 : 70),
-            z: -220,
-            stagger: { each: 0.045, from: "start" },
+            x: (i) => (i % 2 ? 150 : -150),
+            rotationY: (i) => (i % 2 ? -85 : 85),
+            z: -300,
+            stagger: { each: 0.055, from: "start" },
           });
         }
       } else if (transition === "slide") {
@@ -490,11 +490,91 @@ class SiteSlider extends HTMLElement {
           },
         });
 
-        gsap.set(nextSlide, { opacity: 0, x: 64 });
+        gsap.set(nextSlide, { opacity: 0, x: 180 });
         gsap.set(prevSlide, { opacity: 1, x: 0 });
 
-        this._gsapTimeline.to(prevSlide, { opacity: 0, x: -64, duration: 0.75 }, 0);
-        this._gsapTimeline.to(nextSlide, { opacity: 1, x: 0, duration: 0.85 }, 0.05);
+        this._gsapTimeline.to(prevSlide, { opacity: 0, x: -180, duration: 1 }, 0);
+        this._gsapTimeline.to(nextSlide, { opacity: 1, x: 0, duration: 1.15 }, 0.05);
+      } else if (transition === "zoom") {
+        this._gsapTimeline = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          onComplete: () => {
+            gsap.set([prevSlide, nextSlide], { clearProps: "transform,filter" });
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+
+        gsap.set(nextSlide, { opacity: 0, scale: 1.25 });
+        gsap.set(prevSlide, { opacity: 1, scale: 1 });
+
+        this._gsapTimeline.to(prevSlide, { opacity: 0, scale: 0.88, duration: 1 }, 0);
+        this._gsapTimeline.to(nextSlide, { opacity: 1, scale: 1, duration: 1.2 }, 0.05);
+      } else if (transition === "wipe") {
+        this._gsapTimeline = gsap.timeline({
+          defaults: { ease: "power3.inOut" },
+          onComplete: () => {
+            gsap.set([prevSlide, nextSlide], { clearProps: "clipPath" });
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+
+        gsap.set(nextSlide, { opacity: 1, clipPath: "inset(0 100% 0 0)" });
+        gsap.set(prevSlide, { opacity: 1 });
+
+        this._gsapTimeline.to(nextSlide, { clipPath: "inset(0 0% 0 0)", duration: 1.25 }, 0);
+        this._gsapTimeline.to(prevSlide, { opacity: 0.25, duration: 1.25 }, 0);
+      } else if (transition === "curtain") {
+        this._gsapTimeline = gsap.timeline({
+          defaults: { ease: "power3.inOut" },
+          onComplete: () => {
+            gsap.set([prevSlide, nextSlide], { clearProps: "clipPath" });
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+
+        gsap.set(nextSlide, { opacity: 1, clipPath: "inset(0 50% 0 50%)" });
+        gsap.set(prevSlide, { opacity: 1 });
+
+        this._gsapTimeline.to(nextSlide, { clipPath: "inset(0 0% 0 0%)", duration: 1.3 }, 0);
+        this._gsapTimeline.to(prevSlide, { opacity: 0.15, duration: 1.3 }, 0);
+      } else if (transition === "rotate") {
+        this._gsapTimeline = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          onComplete: () => {
+            gsap.set([prevSlide, nextSlide], { clearProps: "transform,transformOrigin" });
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+
+        gsap.set(nextSlide, { opacity: 0, scale: 1.18, rotation: 5, transformOrigin: "center center" });
+        gsap.set(prevSlide, { opacity: 1, scale: 1, rotation: 0, transformOrigin: "center center" });
+
+        this._gsapTimeline.to(prevSlide, { opacity: 0, scale: 0.9, rotation: -4, duration: 1 }, 0);
+        this._gsapTimeline.to(nextSlide, { opacity: 1, scale: 1, rotation: 0, duration: 1.2 }, 0.04);
+      } else if (transition === "blur") {
+        this._gsapTimeline = gsap.timeline({
+          defaults: { ease: "power2.out" },
+          onComplete: () => {
+            gsap.set([prevSlide, nextSlide], { clearProps: "filter,transform" });
+            nextSlide.style.zIndex = "1";
+            prevSlide.style.zIndex = "0";
+            this._gsapTimeline = null;
+          },
+        });
+
+        gsap.set(nextSlide, { opacity: 0, filter: "blur(22px)", scale: 1.08 });
+        gsap.set(prevSlide, { opacity: 1, filter: "blur(0px)", scale: 1 });
+
+        this._gsapTimeline.to(prevSlide, { opacity: 0, filter: "blur(16px)", duration: 1 }, 0);
+        this._gsapTimeline.to(nextSlide, { opacity: 1, filter: "blur(0px)", scale: 1, duration: 1.2 }, 0.05);
       } else {
         // Crossfade slides + subtle "ken burns" on the background image.
         gsap.set(nextSlide, { opacity: 0 });
@@ -505,14 +585,14 @@ class SiteSlider extends HTMLElement {
             this._gsapTimeline = null;
           },
         });
-        this._gsapTimeline.to(prevSlide, { opacity: 0, duration: 0.75, ease: "power2.out" }, 0);
-        this._gsapTimeline.to(nextSlide, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0.05);
+        this._gsapTimeline.to(prevSlide, { opacity: 0, duration: 1, ease: "power2.out" }, 0);
+        this._gsapTimeline.to(nextSlide, { opacity: 1, duration: 1.2, ease: "power2.out" }, 0.05);
       }
 
       const nextImg = nextSlide.querySelector("img");
       if (nextImg) {
         gsap.killTweensOf(nextImg);
-        gsap.fromTo(nextImg, { scale: 1.06 }, { scale: 1, duration: 1.15, ease: "power2.out" });
+        gsap.fromTo(nextImg, { scale: 1.12 }, { scale: 1, duration: 1.55, ease: "power2.out" });
       }
     }
 
