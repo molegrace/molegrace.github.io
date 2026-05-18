@@ -52,6 +52,11 @@
       [data-logo-track] > div {
         flex-basis: 50%;
       }
+
+      [data-partners-section] > div {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
     }
   </style>
 
@@ -97,17 +102,17 @@
     </section>
 
   <!-- Callout -->
-<section class="relative overflow-hidden bg-primary-700 text-main-0">
+<section class="relative min-h-[350px] overflow-hidden bg-primary-700 text-main-0 lg:min-h-0">
   <div
     class="absolute inset-0 opacity-35 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.22)_1px,transparent_0)] bg-size-[28px_28px]">
   </div>
 
-  <div class="relative w-full px-5 py-10 sm:px-8 lg:px-17.5 lg:py-9.5">
+  <div class="relative flex min-h-[350px] w-full items-center px-5 py-12 text-center sm:px-8 lg:min-h-0 lg:px-17.5 lg:py-9.5 lg:text-left">
     <div
-      class="grid gap-8 lg:grid-cols-[380px_5px_minmax(0,1fr)_170px] lg:items-center lg:gap-x-8">
+      class="mx-auto grid max-w-[330px] gap-7 lg:mx-0 lg:max-w-none lg:grid-cols-[380px_5px_minmax(0,1fr)_170px] lg:items-center lg:gap-x-8">
       
       <div>
-        <h2 class="whitespace-nowrap text-4xl font-bold tracking-tight text-main-0 sm:text-5xl lg:text-[42px]">
+        <h2 class="whitespace-nowrap text-[30px] font-bold leading-tight tracking-tight text-main-0 sm:text-5xl lg:text-[42px]">
           DATA solutions
         </h2>
       </div>
@@ -115,17 +120,17 @@
       <div class="hidden h-28.5 w-1.25 rounded-full bg-main-0/70 lg:block"></div>
 
       <div>
-        <p class="max-w-245 font-sans text-lg font-medium leading-[1.45] text-main-0/70 sm:text-[20px]">
+        <p class="mx-auto max-w-[310px] font-sans text-[17px] font-medium leading-[1.55] text-main-0/70 sm:text-[20px] lg:mx-0 lg:max-w-245 lg:leading-[1.45]">
           We advise, design, execute and support throughout all the stages of projects,
           Modelling, implementation of databases and definition of the metadata as
           per international standards
         </p>
       </div>
 
-      <div class="lg:flex lg:justify-end">
+      <div class="pt-3 lg:flex lg:justify-end lg:pt-0">
         <a
           href="/contact/"
-          class="inline-flex h-13 w-42.5 items-center justify-center rounded-md bg-main-0 px-4 text-sm font-bold text-main-900 shadow-sm transition hover:bg-primary-800 hover:text-main-0 focus:outline-none focus:ring-2 focus:ring-main-0/60"
+          class="inline-flex h-12 w-42.5 items-center justify-center rounded-md bg-main-0 px-4 text-sm font-bold text-primary-900 shadow-sm transition hover:bg-primary-800 hover:text-main-0 focus:outline-none focus:ring-2 focus:ring-main-0/60 lg:h-13"
         >
           <span>GET A QUOTES</span>
         </a>
@@ -136,7 +141,7 @@
 </section>
 
     <!-- About -->
-    <section class="bg-main-0 mt-20">
+    <section class="bg-main-0 mt-10 md:mt-20">
       <div class="mx-auto max-w-7xl px-4 py-16">
         <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div class="overflow-hidden rounded-2xl border border-primary-200 bg-primary-100">
@@ -177,7 +182,7 @@
     </section>
 
     <!-- Feature banner -->
-    <section class="relative overflow-hidden bg-primary-600 mt-20">
+    <section class="relative overflow-hidden bg-primary-600 mt-10 md:mt-20">
       <div class="feature-banner section-spacing">
         <div class="opacity">
           <div class="container">
@@ -191,7 +196,7 @@
     </section>
 
     <!-- Solutions -->
-    <section class="bg-main-0 mt-20">
+    <section class="bg-main-0 mt-10 md:mt-20">
       <div class="mx-auto max-w-7xl px-4 py-16">
         <div class="mx-auto max-w-6xl text-center">
           <h2 class="text-4xl font-extrabold uppercase tracking-wide text-main-900 sm:text-5xl">OUR SOLUTIONS</h2>
@@ -202,7 +207,7 @@
           </p>
         </div>
 
-        <div class="mt-20 grid gap-12 text-center sm:grid-cols-2 lg:grid-cols-3">
+        <div class="mt-10 grid gap-12 text-center md:mt-20 sm:grid-cols-2 lg:grid-cols-3">
           <a href="/land/"
             class="group block px-6 transition hover:-translate-y-1">
             <div>
@@ -247,7 +252,7 @@
     </section>
 
     <!-- Testimonials -->
-    <section class="relative overflow-hidden bg-[url('../images/home/9.jpg')] bg-cover bg-center bg-fixed bg-no-repeat mt-20">
+    <section class="relative overflow-hidden bg-[url('../images/home/9.jpg')] bg-cover bg-center bg-fixed bg-no-repeat mt-10 md:mt-20">
       
       <div class="relative mx-auto grid min-h-130 max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,640px)_minmax(320px,1fr)] lg:px-8">
         <div class="relative rounded-md bg-main-0 px-8 py-14 text-center shadow-xl shadow-main-1000/10 after:absolute after:-right-3.5 after:top-18 after:h-7 after:w-7 after:rotate-45 after:bg-main-0 sm:px-12">
@@ -291,7 +296,7 @@
     </section>
 
     <!-- Counters -->
-    <section class="relative overflow-hidden bg-primary-50 mt-20">
+    <section class="relative overflow-hidden bg-primary-50 mt-10 md:mt-20">
       <div class="absolute inset-0 bg-[url('../images/home/pattern.png')] bg-contain bg-center bg-no-repeat opacity-70"></div>
       <div class="relative mx-auto max-w-7xl px-4 py-20 text-center sm:px-6 lg:px-8">
         <p class="text-xl font-bold uppercase tracking-wide text-primary-900">Company Success</p>
@@ -299,7 +304,7 @@
           Some fun facts about our services
         </h2>
 
-        <div class="mt-20 grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-4">
+        <div class="mt-10 grid grid-cols-2 gap-x-8 gap-y-12 md:mt-20 sm:grid-cols-4">
           <div>
             <div class="text-7xl font-light leading-none text-primary-900 sm:text-8xl">
               5<span class="text-4xl sm:text-5xl">+</span>
@@ -326,7 +331,7 @@
           </div>
         </div>
 
-        <div class="mt-20">
+        <div class="mt-10 md:mt-20">
           <a href="/projects/"
             class="inline-flex h-19 w-full max-w-90 items-center justify-center rounded-md bg-primary-900 px-8 text-lg font-bold text-main-0 transition hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-400">
             VIEW PROCESSED DATA
@@ -336,7 +341,7 @@
     </section>
 
     <!-- Consultation -->
-    <section class="bg-main-0 mt-20">
+    <section class="bg-main-0 mt-10 md:mt-20">
       <div class="mx-auto max-w-7xl px-4 py-16">
         <div class="mx-auto max-w-3xl text-center">
           <h2 class="text-4xl font-extrabold uppercase tracking-wide text-main-900 sm:text-5xl">FREE CONSULTATION</h2>
@@ -381,13 +386,13 @@
     </section>
 
     <!-- Partners -->
-    <section class="bg-primary-50 mt-20">
+    <section class="bg-primary-50 mt-10 md:mt-20" data-partners-section>
       <div class="mx-auto max-w-7xl px-4 py-10">
-        <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
+        <div class="grid gap-8 text-center lg:grid-cols-12 lg:items-center lg:text-left">
           <div class="lg:col-span-3">
             <h2 class="text-xl font-bold tracking-tight text-main-800">
-              OUR <br />
-              PARTNERS
+              OUR <span class="lg:hidden">PARTNERS</span><br class="hidden lg:block" />
+              <span class="hidden lg:inline">PARTNERS</span>
             </h2>
           </div>
           <div class="lg:col-span-9 overflow-hidden">
@@ -414,7 +419,7 @@
     </section>
 
     <!-- Latest news -->
-    <section class="bg-main-0 mt-20">
+    <section class="bg-main-0 mt-10 md:mt-20">
       <div class="mx-auto max-w-7xl px-2 py-16">
         <div class="text-center">
           <h2 class="text-4xl font-extrabold uppercase tracking-wide text-main-900 sm:text-5xl">Latest News</h2>
