@@ -25,7 +25,7 @@ const MENU = [
 function createLink(item) {
   return `
     <a href="${item.href}"
-       class="nav-link uppercase rounded-lg px-3 py-2 text-lg font-medium text-main-500 transition hover:text-main-900">
+       class="nav-link uppercase rounded-lg px-3 py-2 text-md font-medium text-main-500 transition hover:text-main-900">
       ${item.label}
     </a>
   `;
@@ -74,7 +74,7 @@ function renderMobileMenu(menu) {
     return `
       <div data-mobile-dropdown>
         <button type="button" data-mobile-dropdown-trigger
-          class="flex w-full justify-between px-3 py-2 text-sm font-medium">
+          class="flex w-full justify-between px-3 py-2 text-md font-medium">
           ${item.label} <i class="bi bi-chevron-down"></i>
         </button>
 
