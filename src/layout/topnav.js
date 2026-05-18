@@ -60,7 +60,7 @@ function createDropdown(item) {
 function renderDesktopMenu(menu) {
   return menu.map((item, i) => {
     const el = item.children ? createDropdown(item) : createLink(item);
-    const sep = i < menu.length - 1 ? `<span class="text-main-600">|</span>` : "";
+    const sep = i < menu.length - 1 ? `<span class="px-4 text-2xl font-light text-main-600">/</span>` : "";
     return el + sep;
   }).join("");
 }
@@ -68,19 +68,27 @@ function renderDesktopMenu(menu) {
 function renderMobileMenu(menu) {
   return menu.map(item => {
     if (!item.children) {
-      return `<a href="${item.href}" class="block px-3 py-2 text-sm font-medium">${item.label}</a>`;
+      return `
+        <a href="${item.href}"
+           class="block border-b border-main-200 px-3 py-3 text-sm font-semibold uppercase text-main-600">
+          ${item.label}
+        </a>
+      `;
     }
 
     return `
       <div data-mobile-dropdown>
         <button type="button" data-mobile-dropdown-trigger
-          class="flex w-full justify-between px-3 py-2 text-md font-medium">
-          ${item.label} <i class="bi bi-chevron-down"></i>
+          class="flex w-full items-center justify-between border-b border-main-200 text-sm font-semibold uppercase text-main-600">
+          <span class="px-3 py-3">${item.label}</span>
+          <span class="flex min-h-11 w-12 items-center justify-center border-l border-main-200">
+            <i class="bi bi-chevron-down text-xs"></i>
+          </span>
         </button>
 
-        <div data-mobile-dropdown-menu class="hidden px-2 pb-2">
+        <div data-mobile-dropdown-menu class="hidden bg-main-50">
           ${item.children.map(child => `
-            <a href="${child.href}" class="block px-3 py-2 text-sm">
+            <a href="${child.href}" class="block border-b border-main-200 px-6 py-3 text-sm font-medium text-main-600">
               ${child.label}
             </a>
           `).join("")}
@@ -91,46 +99,81 @@ function renderMobileMenu(menu) {
 }
 
 template.innerHTML = `
-<header class="w-full border-b border-primary-200 bg-white">
+<header class="relative w-full border-b border-primary-200 bg-white">
 
   <!-- TOP BAR -->
   <div class="bg-primary-700 text-white">
-    <div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-2 sm:flex-row sm:items-center sm:justify-between">
-      <div class="text-sm font-medium tracking-wide">We are leading data firm!</div>
+    <div class="flex flex-col items-center justify-center gap-3 px-4 py-4 text-center sm:flex-row sm:justify-between sm:px-8 sm:text-left lg:px-16">
+      <div class="text-base font-semibold tracking-wide md:text-2xl">We are leading data firm!</div>
 
-      <div class="flex items-center gap-2">
-        <a href="#" class="inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-white/10"><i class="bi bi-facebook"></i></a>
-        <a href="#" class="inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-white/10"><i class="bi bi-instagram"></i></a>
-        <a href="#" class="inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-white/10"><i class="bi bi-linkedin"></i></a>
+      <div class="flex items-center gap-2 text-sm md:gap-3 md:text-xl">
+        <a href="#" class="inline-flex items-center justify-center transition hover:text-white/80"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="inline-flex items-center justify-center transition hover:text-white/80"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="inline-flex items-center justify-center transition hover:text-white/80"><i class="bi bi-linkedin"></i></a>
       </div>
     </div>
   </div>
 
   <!-- NAV -->
   <div id="topnav" class="bg-white transition-all duration-300">
-    <div class="mx-auto max-w-7xl px-2 py-8 ">
+    <div class="px-4 py-5 sm:px-8 md:py-9 lg:px-16">
 
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between md:justify-between">
 
-        <a href="/" class="flex items-center gap-3">
-          <img src="/assets/images/logo/logo.png" class="h-12" />
-        </a>
-
-        <button data-nav-toggle class="md:hidden h-10 w-10 border rounded-lg">
-          <i class="bi bi-list text-xl"></i>
+        <button data-nav-toggle class="inline-flex h-10 w-10 items-center justify-start text-primary-700 md:hidden" aria-label="Open menu">
+          <i class="bi bi-list text-2xl"></i>
         </button>
 
-        <nav class="hidden md:flex items-center gap-1">
-          ${renderDesktopMenu(MENU)}
-        </nav>
+        <a href="/" class="flex items-center gap-3 md:mr-auto">
+          <img src="/assets/images/logo/logo.png" class="h-8 md:h-12" />
+        </a>
+
+        <button type="button"
+           data-search-toggle
+           class="inline-flex h-10 w-10 items-center justify-end text-main-500 transition hover:text-main-900 md:hidden"
+           aria-label="Open search"
+           aria-expanded="false">
+          <i class="bi bi-search text-xl"></i>
+        </button>
+
+        <div class="hidden md:flex items-center justify-end gap-10">
+          <nav class="flex items-center gap-1">
+            ${renderDesktopMenu(MENU)}
+          </nav>
+
+          <button type="button"
+             data-search-toggle
+             class="inline-flex h-8 w-8 items-center justify-center text-main-500 transition hover:text-main-900"
+             aria-label="Open search"
+             aria-expanded="false">
+            <i class="bi bi-search text-2xl"></i>
+          </button>
+        </div>
 
       </div>
 
-      <div data-mobile-nav class="hidden mt-4 border p-2 md:hidden">
+      <div data-mobile-nav class="hidden mt-5 border border-main-200 bg-white md:hidden">
         ${renderMobileMenu(MENU)}
       </div>
 
     </div>
+  </div>
+
+  <div data-search-panel class="absolute left-0 right-0 top-full z-40 hidden px-4 md:px-16">
+    <form action="/collection/" method="get" class="ml-12 flex max-w-sm border border-main-200 bg-white shadow-sm md:ml-auto" style="width: calc(100% - 3rem);" role="search">
+      <label for="topnav-search-input" class="sr-only">Search</label>
+      <input id="topnav-search-input"
+             data-search-input
+             name="q"
+             type="search"
+             placeholder="Enter Your Search"
+             class="h-12 min-w-0 flex-1 bg-white px-3 text-sm text-main-600 outline-none" />
+      <button type="submit"
+              class="inline-flex h-12 w-12 shrink-0 items-center justify-center bg-primary-700 text-white transition hover:bg-primary-800"
+              aria-label="Submit search">
+        <i class="bi bi-search text-xl"></i>
+      </button>
+    </form>
   </div>
 
   <div data-nav-placeholder class="hidden"></div>
@@ -163,6 +206,9 @@ class TopNav extends HTMLElement {
     const navPlaceholder = this.querySelector("[data-nav-placeholder]");
     const navToggle = this.querySelector("[data-nav-toggle]");
     const mobileNav = this.querySelector("[data-mobile-nav]");
+    const searchPanel = this.querySelector("[data-search-panel]");
+    const searchInput = this.querySelector("[data-search-input]");
+    const searchToggles = this.querySelectorAll("[data-search-toggle]");
     let pinNavTimer = null;
     let navPinned = false;
 
@@ -212,6 +258,25 @@ class TopNav extends HTMLElement {
       mobileNav.classList.toggle("hidden");
     });
 
+    const setSearchOpen = open => {
+      searchPanel?.classList.toggle("hidden", !open);
+      searchToggles.forEach(toggle => {
+        toggle.setAttribute("aria-expanded", String(open));
+      });
+
+      if (open) {
+        mobileNav?.classList.add("hidden");
+        setTimeout(() => searchInput?.focus(), 0);
+      }
+    };
+
+    searchToggles.forEach(toggle => {
+      toggle.addEventListener("click", e => {
+        e.preventDefault();
+        setSearchOpen(searchPanel?.classList.contains("hidden"));
+      });
+    });
+
     const dropdowns = this.querySelectorAll("[data-dropdown]");
 
     const closeAll = () => {
@@ -252,6 +317,7 @@ class TopNav extends HTMLElement {
     window.addEventListener("click", e => {
       if (!this.contains(e.target)) {
         this.querySelectorAll("[data-dropdown-menu]").forEach(m => m.classList.add("hidden"));
+        setSearchOpen(false);
       }
     });
   }
