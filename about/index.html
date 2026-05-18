@@ -175,44 +175,46 @@
         <!-- FLOATING CARD -->
    
         <div
-          class="relative z-10 mt-6 -mb-64 grid overflow-hidden rounded-md border-0 border-main-0/20 bg-main-0/10 shadow-lg lg:grid-cols-2">
+          class="relative z-10 mx-auto mt-8 mb-4 grid w-full max-w-[345px] overflow-hidden rounded-md border-0 border-main-0/20 bg-main-0 shadow-xl sm:max-w-sm lg:-mb-64 lg:max-w-none lg:grid-cols-2 lg:bg-main-0/10">
           <!-- IMAGE -->
-          <div class="min-h-105 bg-[url('../images/home/16.jpg')] bg-cover bg-center lg:order-last"></div>
+          <div class="bg-main-0 lg:order-last lg:min-h-105">
+            <img src="/assets/images/home/16.jpg" alt="" class="block h-auto w-full object-contain lg:h-full lg:min-h-105 lg:object-cover" loading="lazy" />
+          </div>
 
           <!-- CONTENT -->
-          <div class="bg-main-0 p-8 sm:p-10 text-main-900 flex flex-col justify-center">
+          <div class="flex flex-col justify-center border-t border-main-200 bg-main-0 p-6 text-main-900 sm:p-10 lg:border-t-0">
 
-            <ul class="space-y-8">
+            <ul class="space-y-8 sm:space-y-10 lg:space-y-8">
 
               <li class="flex gap-4 items-start">
                 <span
-                  class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-800">
-                  <i class="bi bi-puzzle  text-3xl"></i>
+                  class="inline-flex h-10 w-10 shrink-0 items-center justify-center text-primary-900 sm:h-12 sm:w-12">
+                  <i class="bi bi-puzzle text-3xl"></i>
                 </span>
                 <div>
-                  <h3 class="text-xl font-bold text-main-950">Best Strategy</h3>
+                  <h3 class="text-lg font-bold text-main-950 sm:text-xl">Best Strategy</h3>
                   <p class="mt-1 text-sm leading-6 text-main-700">To meet your requirement.</p>
                 </div>
               </li>
 
               <li class="flex gap-4 items-start">
                 <span
-                  class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary-100 text-primary-800">
-                  <i class="bi bi-easel2 text-2xl"></i>
+                  class="inline-flex h-10 w-10 shrink-0 items-center justify-center text-primary-900 sm:h-12 sm:w-12">
+                  <i class="bi bi-easel2 text-3xl"></i>
                 </span>
                 <div>
-                  <h3 class="text-xl font-bold text-main-950">High-Quality Services</h3>
+                  <h3 class="text-lg font-bold text-main-950 sm:text-xl">High-Quality Services</h3>
                   <p class="mt-1 text-sm leading-6 text-main-700">For best solution.</p>
                 </div>
               </li>
 
               <li class="flex gap-4 items-start">
                 <span
-                  class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary-100 text-primary-800">
-                  <i class="bi bi-people text-2xl"></i>
+                  class="inline-flex h-10 w-10 shrink-0 items-center justify-center text-primary-900 sm:h-12 sm:w-12">
+                  <i class="bi bi-people text-3xl"></i>
                 </span>
                 <div>
-                  <h3 class="text-xl font-bold text-main-950">Friendly Support</h3>
+                  <h3 class="text-lg font-bold text-main-950 sm:text-xl">Friendly Support</h3>
                   <p class="mt-1 text-sm leading-6 text-main-700">24/7/365 full support.</p>
                 </div>
               </li>
@@ -227,7 +229,7 @@
     </section>
 
     <!-- Partner section -->
-    <section class="bg-primary-50 mt-64">
+    <section class="bg-primary-50 mt-10 lg:mt-64">
       <div class="mx-auto max-w-7xl px-2 py-6 sm:px-3 lg:px-4">
         <div class="grid gap-8 text-center lg:grid-cols-12 lg:items-center lg:text-left">
           <div class="lg:col-span-3">

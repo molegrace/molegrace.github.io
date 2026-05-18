@@ -960,6 +960,9 @@
   .h-\[520px\] {
     height: 520px;
   }
+  .h-auto {
+    height: auto;
+  }
   .h-full {
     height: 100%;
   }
@@ -983,6 +986,9 @@
   }
   .min-h-30 {
     min-height: calc(var(--spacing) * 30);
+  }
+  .min-h-52 {
+    min-height: calc(var(--spacing) * 52);
   }
   .min-h-65 {
     min-height: calc(var(--spacing) * 65);
@@ -1089,8 +1095,14 @@
   .max-w-\[310px\] {
     max-width: 310px;
   }
+  .max-w-\[315px\] {
+    max-width: 315px;
+  }
   .max-w-\[330px\] {
     max-width: 330px;
+  }
+  .max-w-\[345px\] {
+    max-width: 345px;
   }
   .max-w-\[360px\] {
     max-width: 360px;
@@ -1294,6 +1306,13 @@
       --tw-space-y-reverse: 0;
       margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));
       margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));
+    }
+  }
+  .space-y-7 {
+    :where(& > :not(:last-child)) {
+      --tw-space-y-reverse: 0;
+      margin-block-start: calc(calc(var(--spacing) * 7) * var(--tw-space-y-reverse));
+      margin-block-end: calc(calc(var(--spacing) * 7) * calc(1 - var(--tw-space-y-reverse)));
     }
   }
   .space-y-8 {
@@ -2411,6 +2430,11 @@
       margin-top: calc(var(--spacing) * 8);
     }
   }
+  .sm\:h-12 {
+    @media (width >= 576px) {
+      height: calc(var(--spacing) * 12);
+    }
+  }
   .sm\:h-120 {
     @media (width >= 576px) {
       height: calc(var(--spacing) * 120);
@@ -2421,14 +2445,29 @@
       height: 620px;
     }
   }
+  .sm\:min-h-72 {
+    @media (width >= 576px) {
+      min-height: calc(var(--spacing) * 72);
+    }
+  }
   .sm\:min-h-80 {
     @media (width >= 576px) {
       min-height: calc(var(--spacing) * 80);
     }
   }
+  .sm\:w-12 {
+    @media (width >= 576px) {
+      width: calc(var(--spacing) * 12);
+    }
+  }
   .sm\:w-auto {
     @media (width >= 576px) {
       width: auto;
+    }
+  }
+  .sm\:max-w-sm {
+    @media (width >= 576px) {
+      max-width: var(--container-sm);
     }
   }
   .sm\:grid-cols-2 {
@@ -2464,6 +2503,15 @@
   .sm\:gap-0 {
     @media (width >= 576px) {
       gap: calc(var(--spacing) * 0);
+    }
+  }
+  .sm\:space-y-10 {
+    @media (width >= 576px) {
+      :where(& > :not(:last-child)) {
+        --tw-space-y-reverse: 0;
+        margin-block-start: calc(calc(var(--spacing) * 10) * var(--tw-space-y-reverse));
+        margin-block-end: calc(calc(var(--spacing) * 10) * calc(1 - var(--tw-space-y-reverse)));
+      }
     }
   }
   .sm\:border-x {
@@ -2525,6 +2573,12 @@
   .sm\:text-left {
     @media (width >= 576px) {
       text-align: left;
+    }
+  }
+  .sm\:text-2xl {
+    @media (width >= 576px) {
+      font-size: var(--text-2xl);
+      line-height: var(--tw-leading, var(--text-2xl--line-height));
     }
   }
   .sm\:text-3xl {
@@ -2712,6 +2766,16 @@
       margin-inline: calc(var(--spacing) * 0);
     }
   }
+  .lg\:mt-64 {
+    @media (width >= 992px) {
+      margin-top: calc(var(--spacing) * 64);
+    }
+  }
+  .lg\:-mb-64 {
+    @media (width >= 992px) {
+      margin-bottom: calc(var(--spacing) * -64);
+    }
+  }
   .lg\:mb-\[-16px\] {
     @media (width >= 992px) {
       margin-bottom: -16px;
@@ -2747,6 +2811,11 @@
       height: calc(var(--spacing) * 13);
     }
   }
+  .lg\:h-full {
+    @media (width >= 992px) {
+      height: 100%;
+    }
+  }
   .lg\:min-h-0 {
     @media (width >= 992px) {
       min-height: calc(var(--spacing) * 0);
@@ -2760,6 +2829,11 @@
   .lg\:min-h-88 {
     @media (width >= 992px) {
       min-height: calc(var(--spacing) * 88);
+    }
+  }
+  .lg\:min-h-105 {
+    @media (width >= 992px) {
+      min-height: calc(var(--spacing) * 105);
     }
   }
   .lg\:max-w-245 {
@@ -2827,9 +2901,37 @@
       gap: calc(var(--spacing) * 11);
     }
   }
+  .lg\:space-y-8 {
+    @media (width >= 992px) {
+      :where(& > :not(:last-child)) {
+        --tw-space-y-reverse: 0;
+        margin-block-start: calc(calc(var(--spacing) * 8) * var(--tw-space-y-reverse));
+        margin-block-end: calc(calc(var(--spacing) * 8) * calc(1 - var(--tw-space-y-reverse)));
+      }
+    }
+  }
   .lg\:gap-x-8 {
     @media (width >= 992px) {
       column-gap: calc(var(--spacing) * 8);
+    }
+  }
+  .lg\:border-t-0 {
+    @media (width >= 992px) {
+      border-top-style: var(--tw-border-style);
+      border-top-width: 0px;
+    }
+  }
+  .lg\:bg-main-0\/10 {
+    @media (width >= 992px) {
+      background-color: var(--color-main-0);
+      @supports (color: color-mix(in lab, red, red)) {
+        background-color: color-mix(in oklab, var(--color-main-0) 10%, transparent);
+      }
+    }
+  }
+  .lg\:object-cover {
+    @media (width >= 992px) {
+      object-fit: cover;
     }
   }
   .lg\:px-4 {
